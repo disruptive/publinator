@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  site_id: 1
+  publication_state_id: 1
+  parent_id: 1
+  custom_slug: MyString
+  slug: MyString
+  publishable_type: MyString
+  publishable_id: 1
+
+two:
+  site_id: 1
+  publication_state_id: 1
+  parent_id: 1
+  custom_slug: MyString
+  slug: MyString
+  publishable_type: MyString
+  publishable_id: 1

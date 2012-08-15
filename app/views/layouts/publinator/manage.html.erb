@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title || current_site.name %></title>
+  <%= stylesheet_link_tag    "publinator/application", :media => "all" %>
+  <%= javascript_include_tag "publinator/application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <h1><%= link_to "Managing", manage_path %> <%= link_to current_site.name, root_url %></h1>
+  <%= yield %>
+</body>
+</html>

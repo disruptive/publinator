@@ -1,0 +1,5 @@
+<h2>Content Manager Home Page</h2>
+
+<% @publishable_types.each do |pt| %>
+<%= link_to pt.name.pluralize, "/manage/#{pt.name.downcase.pluralize}" %>
+<% end %>
