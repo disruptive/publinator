@@ -2,7 +2,12 @@ require_dependency "publinator/application_controller"
 
 module Publinator
   class HomeController < ApplicationController
-    def index  
+    def index
+      begin
+        render "home/index"
+      rescue ActionView::MissingTemplate
+        render "publinator/home/index"
+      end  
     end
     
     def page

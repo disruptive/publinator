@@ -1,5 +1,16 @@
 <h2><%= params["publishable_type"].capitalize %></h2>
 
-<%= render :collection => @publishables, :partial => "summary" %>
+<table id="publishables">
+  <thead>
+    <tr>
+      <th><%= params["publishable_type"].capitalize.singularize %> Title</th>
+      <th>Last Updated At</th>
+      <th>Edit</th>
+      <th>Show</th>
+      <th>Public Link</th>
+    </tr>
+  </thead>
+  <%= render :collection => @publishables, :partial => "summary" %>
+</table>
 
 <%= link_to "Add #{params["publishable_type"].singularize.capitalize}", "/manage/#{params["publishable_type"]}/new" %>

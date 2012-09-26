@@ -1,8 +1,12 @@
 Description:
-    Explain the generator
+    The publishable generator creates new publishable object types, facilitating custom objects for specific purposes. The generated migration includes creation of a new PublishableType record and generates a default workflow governing its publication.
 
 Example:
-    rails generate publishable Thing
+    rails generate publishable Article
 
     This will create:
-        what/will/it/create
+          app/models/article.rb
+          db/migrations/20120825201820_create_article.rb
+        
+        
+        

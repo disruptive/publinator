@@ -1,0 +1,23 @@
+<%= semantic_form_for @publishable, :url => manage_create_publishable_path do |form| %>
+  <% if @publishable.errors && @publishable.errors.count > 0 %>
+  <% logger.info @publishable_errors.to_yaml %>
+    <% @publishable.errors.each do |e| %>
+    <%= e %>
+    <% end %>
+  <% end %>
+  <%= form.inputs @publishable.class.to_s do %>
+    <%= form.inputs :title, :body %>
+  <% end %>
+  <%= form.semantic_fields_for @publishable.publication do |pub| %>
+    <%= pub.inputs "Publication Settings" do %>
+      <%= pub.input :custom_slug, :required => false %>
+      <%= pub.input :publish_at, :as => :datetime_select, :required => false %>
+      <%= pub.input :unpublish_at, :as => :datetime_select, :required => false %>
+      <%= pub.input :archive_at, :as => :datetime_select, :required => false %>
+    <% end %>
+  <% end %>
+  <%= form.actions do %>
+    <%= form.action :submit, :as => :button %>
+    <%= form.action :cancel, :as => :link %>
+  <% end %>
+<% end %>

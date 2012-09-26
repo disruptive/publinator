@@ -1,0 +1,5 @@
+<% @sites.each do |s| %>
+  <%= link_to s.name, manage_site_path(s) %>
+<% end %>
+
+<%= link_to "Add Site", new_manage_site_path %>

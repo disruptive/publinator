@@ -1,3 +1,10 @@
-<p>
-  <%= @publishable.to_yaml %>
-</p>
+
+<h1><%= @publishable.title %></h1>
+
+<%= @publishable.body %>
+
+<div id="controls">
+  <%= link_to "Back", manage_publishables_path(@publishable.class.to_s.downcase.pluralize) %>
+  <%= link_to "Edit", manage_edit_publishable_path(@publishable.class.to_s.downcase.pluralize, @publishable) %>
+  <%= link_to "Delete", manage_publishable_path(@publishable.class.to_s.downcase.pluralize, @publishable.id), :method => :delete, :class => "danger", :confirm => "Delete this #{@publishable.class.to_s}?" %>
+</div>

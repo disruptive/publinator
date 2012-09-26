@@ -1,1 +1,7 @@
-<%= link_to summary.slug, summary %>
+<tr>
+  <td><%= link_to summary.slug, manage_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+  <td><%= summary.updated_at %></td>
+  <td><%= link_to "edit", manage_edit_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+  <td><%= link_to "show", manage_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+  <td><%= link_to "public", publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+</tr>

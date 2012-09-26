@@ -1,8 +1,8 @@
 class CreatePublinatorPublicationStates < ActiveRecord::Migration
   def change
     create_table :publinator_publication_states do |t|
-      t.string :name
-      t.boolean :system
+      t.string :name, :null => false
+      t.boolean :system, :default => false
       
       t.timestamps
     end

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Publinator</title>
+  <%= stylesheet_link_tag    "publinator/publinator", :media => "all" %>
+  <%= javascript_include_tag "publinator/publinator" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div id="header"><h1><%= link_to "Publinator", root_url %></h1></div>
+  <div id="content">
+    <p>Publinator facilitates the publishing of multiple web sites.</p>
+    <% if Publinator::Site.count == 0 %>
+      Please create your initial site.
+    <% else %>
+      <% Publinator::Site.all.each do |s| %>
+        <%= link_to s.name, s.default_domain %> (<%= link_to "Manage", "#{s.default_domain}/manage" %>)<br/>
+      <% end %>
+    <% end %>
+  </div>
+  <div id="footer">&copy <%= Time.now.year %></div>
+</body>
+</html>

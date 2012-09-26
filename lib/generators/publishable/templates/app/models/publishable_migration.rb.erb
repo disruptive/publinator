@@ -1,0 +1,19 @@
+class Create<%= class_name.capitalize %> < ActiveRecord::Migration
+  def self.up
+    create_table :<%= class_name.pluralize.to_sym %> do |t|
+      t.string      :title
+      t.string      :teaser
+      t.text        :body
+      
+      # t.string      :author_name
+      # t.text        :extra_body
+      # t.string      :kicker
+
+      t.timestamps
+    end
+  end
+  
+  def self.down
+    drop_table :<%= class_name.pluralize.to_sym %>
+  end
+end

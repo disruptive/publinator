@@ -3,9 +3,15 @@ module Publinator
     attr_accessible :abbr, :description, :name, :parent_id, :state, :title, :default
     has_many :domain_names
     
-    # ideas: add ability to use a custom layout
+    # get the layout for the site
+    # 
+    # @todo add ability to use a custom layout
     def layout
-      'publinator/site' #self.type.to_s
+      begin
+        abbr
+      rescue ActionView::MissingTemplate
+        "publinator/site"
+      end
     end
     
     def parent
@@ -15,9 +21,9 @@ module Publinator
     
     def publications(scope = 'published', sort = 'updated_at desc', publishable_type)
       if publishable_type.nil?
-        pubs = Publication.send(scope).order(sort)
+        pubs = Publication.for_site(self.id).send(scope).order(sort)
       else
-        pubs = Publication.send(scope).where(:publishable_type => publishable_type).order(sort)
+        pubs = Publication.for_site(self.id).send(scope).where(:publishable_type => publishable_type).order(sort)
       end
       if parent
         pubs += parent.pubs

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @title || current_site.name %></title>
-  <%= stylesheet_link_tag    "publinator/application", :media => "all" %>
-  <%= javascript_include_tag "publinator/application" %>
+  <title><%= @title || current_site_name %></title>
+  <%= stylesheet_link_tag    "publinator/manage", :media => "all" %>
+  <%= javascript_include_tag "publinator/manage" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1><%= link_to "Managing", manage_path %> <%= link_to current_site.name, root_url %></h1>
-  <%= yield %>
+  <div id="header">
+    <h3><%= link_to "Managing", manage_path %> <%= link_to (current_site_name || "Publinator"), root_url, :target => "_new" %></h3>
+  </div>
+  <div id="content">  
+    <%= yield %>
+  </div>
+  <div id="footer">
+  </div>
 </body>
 </html>

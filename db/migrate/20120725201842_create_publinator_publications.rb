@@ -6,10 +6,16 @@ class CreatePublinatorPublications < ActiveRecord::Migration
       t.integer :parent_id
       t.string :custom_slug
       t.string :slug
+      t.datetime :publish_at
+      t.datetime :unpublish_at
+      t.datetime :archive_at
       t.string :publishable_type
       t.integer :publishable_id
 
       t.timestamps
     end
+    add_index :publinator_publications, :site_id
+    add_index :publinator_publications, :publication_state_id
+    add_index :publinator_publications, :publishable_id
   end
 end

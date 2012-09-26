@@ -2,12 +2,13 @@
 <html>
 <head>
   <title><%= @title || current_site.name %></title>
-  <%= stylesheet_link_tag    "publinator/application", :media => "all" %>
-  <%= javascript_include_tag "publinator/application" %>
+  <%= stylesheet_link_tag    "publinator/site", :media => "all" %>
+  <%= javascript_include_tag "publinator/site" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1><%= link_to current_site.name, root_url %></h1>
-  <%= yield %>
+  <div id="header"><h1><%= link_to current_site.name, root_url %></h1></div>
+  <div id="content"><%= yield %></div>
+  <div id="footer">&copy <%= Time.now.year %></div>
 </body>
 </html>
