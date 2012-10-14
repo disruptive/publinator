@@ -10,9 +10,9 @@ module Publinator
         render "publinator/publishable/index"
       end
     end
-    
+
     def show
-      @publication = Publinator::Publication.find_by_publishable_type_and_publishable_id(params[:publishable_type].singularize.capitalize, params[:id])
+      @publication = Publinator::Publication.find_by_publishable_type_and_slug(params[:publishable_type].singularize.capitalize, params[:id])
       @publishable = @publication.publishable
       begin
         render "#{params[:publishable_type]}/index"

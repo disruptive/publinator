@@ -6,7 +6,9 @@
     <% end %>
   <% end %>
   <%= form.inputs @publishable.class.to_s do %>
-    <%= form.inputs :title, :body %>
+    <% @field_names.each do |field| %>
+      <%= form.input field %>
+    <% end %>
   <% end %>
   <%= form.semantic_fields_for @publishable.publication do |pub| %>
     <%= pub.inputs "Publication Settings" do %>

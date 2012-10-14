@@ -7,9 +7,9 @@ module Publinator
         render "home/index"
       rescue ActionView::MissingTemplate
         render "publinator/home/index"
-      end  
+      end
     end
-    
+
     def page
       @publication = Publinator::Publication.get_by_slug(params[:slug])
       if @publication.nil?
