@@ -1,0 +1,10 @@
+<%= semantic_form_for [:manage, @section], :method => :post do |form| %>
+  <%= form.inputs do %>
+    <%= form.input :name %>
+    <%= form.input :layout %>
+  <% end %>
+  <%= form.actions do %>
+    <%= form.action :submit, :as => :button %>
+    <%= form.action :cancel, :as => :link %>
+  <% end %>
+<% end %>

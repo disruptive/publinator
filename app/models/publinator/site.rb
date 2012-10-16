@@ -2,9 +2,10 @@ module Publinator
   class Site < ActiveRecord::Base
     attr_accessible :abbr, :description, :name, :parent_id, :state, :title, :default
     has_many :domain_names
-    
+    has_many :sections
+
     # get the layout for the site
-    # 
+    #
     # @todo add ability to use a custom layout
     def layout
       begin
@@ -13,12 +14,12 @@ module Publinator
         "publinator/site"
       end
     end
-    
+
     def parent
       return nil unless parent_id.present?
       Site.find(self.parent_id)
     end
-    
+
     def publications(scope = 'published', sort = 'updated_at desc', publishable_type)
       if publishable_type.nil?
         pubs = Publication.for_site(self.id).send(scope).order(sort)

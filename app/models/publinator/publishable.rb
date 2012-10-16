@@ -9,6 +9,10 @@ module Publinator
     def editable_fields
       attribute_names - ["id", "created_at", "updated_at"]
     end
+    
+    def markdown(text)
+      self.body = text
+    end
 
     # def self.publishable_classes
     #       PublishableType.all.each do |pt|

@@ -9,8 +9,9 @@ module Publinator
     belongs_to :site
 
     validates_uniqueness_of :custom_slug, :scope => :site_id, :allow_blank => true
-    validates_uniqueness_of :slug, :scope => [:site_id, :publishable_type]
-    validates_presence_of :slug, :site_id
+    validates_uniqueness_of :slug, :scope => [:site_id, :publishable_type, :section_id]
+    validates_presence_of   :site_id
+    validates_associated    :publishable
     #, :publishable_type, :publishable_id
 
     scope :published, where(:publication_state_id => 1)
@@ -22,10 +23,10 @@ module Publinator
       if self.slug.blank? || self.slug == "Temporary Title"
         if self.custom_slug.present?
           self.slug = self.custom_slug
-        elsif publishable.present?
-          self.slug = title.trim.gsub(" ", "-")
+        elsif publishable.present? && publishable.title.present?
+          self.slug = publishable.title.strip.downcase.gsub(" ", "-")
         else
-          self.slug = "Temporary Title"
+          self.slug = ""
         end
       end
     end
