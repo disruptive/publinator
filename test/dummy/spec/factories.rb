@@ -3,7 +3,6 @@ FactoryGirl.define do
     association :publication
     title       "First Article"
     body        "Article Text is here. Right here in the factory."
-    custom_slug "title"
   end
   
   factory :domain_name, :class => "Publinator::DomainName" do
@@ -19,7 +18,7 @@ FactoryGirl.define do
   factory :section, :class => "Publinator::Section" do
     name        'pop_songs'
     layout      false
-    association :site
+    association :site, factory: :site
   end
   
   factory :site, :class => "Publinator::Site" do

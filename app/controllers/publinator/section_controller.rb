@@ -5,16 +5,19 @@ module Publinator
     before_filter :get_section
     
     def index
+      logger.info "#{@section.id}"
       @publication = Publinator::Publication.find_by_section_id_and_slug(@section.id, 'index')
-      @publishable = @publication.publishable
+      logger.info Publication.all.collect{ |p| [p.section_id, p.slug]}
+      logger.info @publication.to_yaml
+      @publishable = @publication.publishable_type.constantize.find(@publication.publishable_id)
       begin
         render "#{params[:section]}/index"
       rescue ActionView::MissingTemplate
         render "publinator/publishable/show"
       end
-    rescue Exception => e
-      logger.info e.to_yaml
-      # redirect_to root_url, :notice => "Page not found." if @publication.nil?
+    # rescue Exception => e
+    #       logger.info e.to_yaml
+    #       redirect_to root_url, :notice => "Page not found." if @publication.nil?
     end
 
     def show

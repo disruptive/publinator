@@ -61,10 +61,10 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 Before do
   DatabaseCleaner.strategy = :truncation, { :except => %w[sites domain_names] }
   
-  site  = FactoryGirl.create :site
+  @site  = FactoryGirl.create :site
     
-  FactoryGirl.create(:domain_name, :site => site, :name => "dummy.dev", :subdomain => "", :shared => true, :default => true)
-  FactoryGirl.create(:domain_name, :site => site, :name => "example.com", :subdomain => "", :shared => false, :default => false)
+  FactoryGirl.create(:domain_name, :site => @site, :name => "dummy.dev", :subdomain => "", :shared => true, :default => true)
+  FactoryGirl.create(:domain_name, :site => @site, :name => "example.com", :subdomain => "", :shared => false, :default => false)
   
   site  = FactoryGirl.create(:site, :name => "silly", :default => false)
     

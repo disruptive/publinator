@@ -1,11 +1,11 @@
 Given /^there is a section named "(.*?)"$/ do |name|
-  FactoryGirl.create(:section, name: name, site: Publinator::Site.first)
+  @section = FactoryGirl.create(:section, name: name, site: @site)
 end
 
 Given /^the "(.*?)" section has (a|an) "(.*?)" called "(.*?)"$/ do |arg1, aoran, arg2, arg3|
-  FactoryGirl.create(arg2.to_sym,
-    publication: Publinator::Publication.create(custom_slug: 'index'),
-    section_id: Publinator::Section.find_by_name(arg1).id,
+  @obj = FactoryGirl.create(arg2.to_sym,
+    publication: Publinator::Publication.create(custom_slug: arg3, site: @site, section: @section),
+    section: @section,
     body: "#{arg1.humanize} Section Index Page"
   )
 end

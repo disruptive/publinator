@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    publinator (0.0.4)
+    publinator (0.0.5)
       formtastic
       jquery-rails
       paper_trail
