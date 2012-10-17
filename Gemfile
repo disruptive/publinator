@@ -9,7 +9,7 @@ gemspec
 gem "jquery-rails"
 gem "formtastic"
 gem "rspec-rails"
-gem "cucumber-rails"
+gem "cucumber-rails", :require => false
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

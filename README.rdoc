@@ -1,3 +1,9 @@
 = Publinator
 
-This project rocks and uses MIT-LICENSE.
+Changes Pending:
+
+* downcase classname as needed in generator
+
+Recent changes:
+
+* create page model inside publinator

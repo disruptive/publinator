@@ -7,8 +7,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <h1><%= link_to current_site.name, root_url %></h1>
+  <% current_site.sections.each do |s| %>
+    <%= link_to s.name, "/#{s.slug}" %>
+  <% end %>
 
-<%= yield %>
+  <%= yield %>
 
 </body>
 </html>

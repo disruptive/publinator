@@ -11,11 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121014185452) do
+ActiveRecord::Schema.define(:version => 20121017134632) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
     t.text     "body"
+    t.integer  "section_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -26,6 +27,17 @@ ActiveRecord::Schema.define(:version => 20121014185452) do
     t.string   "name"
     t.string   "subdomain"
     t.integer  "site_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "publinator_pages", :force => true do |t|
+    t.string   "title"
+    t.string   "subtitle"
+    t.string   "kicker"
+    t.string   "teaser"
+    t.text     "body"
+    t.integer  "section_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -44,11 +56,9 @@ ActiveRecord::Schema.define(:version => 20121014185452) do
     t.string   "slug"
     t.string   "publishable_type"
     t.integer  "publishable_id"
+    t.integer  "section_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.datetime "publish_at"
-    t.datetime "unpublish_at"
-    t.datetime "archive_at"
   end
 
   create_table "publinator_publishable_types", :force => true do |t|
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20121014185452) do
     t.string   "name"
     t.integer  "parent_id"
     t.boolean  "layout"
+    t.integer  "site_id"
+    t.string   "slug"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

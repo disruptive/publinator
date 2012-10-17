@@ -3,6 +3,7 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string      :title
       t.text        :body
+      t.integer     :section_id
       
       #t.string      :teaser
       # t.string      :author_name

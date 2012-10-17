@@ -3,3 +3,4 @@ module Publinator
     isolate_namespace Publinator
   end
 end
+

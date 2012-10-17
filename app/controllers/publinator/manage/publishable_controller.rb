@@ -30,7 +30,8 @@ module Publinator
         :publication => Publinator::Publication.new(
           :publish_at => 1.day.from_now.beginning_of_day + 8.hours,
           :archive_at => 31.days.from_now.beginning_of_day,
-          :site_id    => current_site.id
+          :site_id    => current_site.id,
+          :publishable_type => params['publishable_type'].singularize.capitalize
         )
       })
       @field_names = (publishable_class.attribute_names - ["id", "created_at", "updated_at"]).collect{ |an| an.to_sym }
@@ -56,6 +57,7 @@ module Publinator
       @publishable_class = @publishable_type.name.capitalize.constantize
       publishable_params = params[@publishable_type.name.downcase.to_sym]
       publication_params = publishable_params.delete('publication').merge({ :site_id => current_site.id, :publishable_type => @publishable_type.name.capitalize })
+      publication_params.merge({:section_id => publishable_params[:section_id]}) if publishable_params[:section_id]
       @publication = Publinator::Publication.create!(publication_params)
       @publishable = @publishable_type.name.capitalize.constantize.send(:new, publishable_params, :publication => @publication)
 

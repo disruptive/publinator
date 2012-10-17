@@ -1,7 +1,7 @@
 require_dependency "publinator/application_controller"
 
 module Publinator
-  class PublishableController < ApplicationController
+  class PublishableController < Publinator::ApplicationController
     def index
       @publishables = current_site.publications('published', 'updated_at desc', params["publishable_type"].singularize.capitalize)
       begin
