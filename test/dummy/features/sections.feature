@@ -16,3 +16,18 @@ Feature: Sections
     When  I am using "dummy.dev"
     And   I visit "/pagers"
     Then  I should see "Pagers Section Index Page"
+
+  Scenario: View a non-index page in section named "Pagers"
+    Given there is a section named "pagers"
+    And   the "pagers" section has a "page" called "benefits"
+    When  I am using "dummy.dev"
+    And   I visit "/pagers/benefits"
+    Then  I should see "Pagers Section Benefits Page"
+
+  Scenario: View two pages in section named "Pagers"
+    Given there is a section named "pagers"
+    And   the "pagers" section has a "page" called "index"
+    And   the "pagers" section has a "page" called "benefits"
+    When  I am using "dummy.dev"
+    And   I visit "/pagers/benefits"
+    Then  I should see "Pagers Section Benefits Page"

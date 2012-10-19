@@ -1,7 +1,7 @@
 module Publinator
-  class Page < Publishable
+  class Page < ActiveRecord::Base
     self.table_name = 'publinator_pages'
-    attr_accessible :body, :kicker, :section_id, :subtitle, :teaser, :title
-    belongs_to :section, :class_name => "Publinator::Section"
+    acts_as_publishable
+    attr_accessible :body, :kicker, :subtitle, :teaser, :title, :section
   end
 end

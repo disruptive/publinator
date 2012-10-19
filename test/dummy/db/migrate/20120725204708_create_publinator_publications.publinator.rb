@@ -10,6 +10,7 @@ class CreatePublinatorPublications < ActiveRecord::Migration
       t.string :publishable_type
       t.integer :publishable_id
       t.integer :section_id
+      t.boolean :default
 
       t.timestamps
     end

@@ -38,16 +38,16 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   DatabaseCleaner.strategy = :truncation, {:except => %w[sites domain_names]}
 
   config.before(:each) do
     DatabaseCleaner.strategy = :truncation, {:except => %w[sites domain_names]}
     @site  = FactoryGirl.create :site
-    
+
     FactoryGirl.create(:domain_name, :site => @site, :name => "dummy.dev", :subdomain => "", :shared => true, :default => true)
     site  = FactoryGirl.create(:site, :name => "silly", :default => false)
-    
+
     FactoryGirl.create(:domain_name, :site => site, :name => "dummy.dev", :subdomain => "silly", :shared => false, :default => true)
   end
 

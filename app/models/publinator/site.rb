@@ -3,6 +3,7 @@ module Publinator
     attr_accessible :abbr, :description, :name, :parent_id, :state, :title, :default
     has_many :domain_names
     has_many :sections
+    has_many :publications
 
     # get the layout for the site
     #

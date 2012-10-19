@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.string   "publishable_type"
     t.integer  "publishable_id"
     t.integer  "section_id"
+    t.boolean  "default"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
   end
@@ -66,12 +67,6 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.string   "sluggable",  :default => "t"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
-  end
-
-  create_table "publinator_publishables", :force => true do |t|
-    t.integer  "publication_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
   end
 
   create_table "publinator_sections", :force => true do |t|

@@ -2,14 +2,14 @@ module Publinator
   # Ideas:
   #   * after_create adds link in ~/.pow in development
   class DomainName < ActiveRecord::Base
-    attr_accessible :default, :name, :shared, :site_id, :subdomain
+    attr_accessible :default, :name, :shared, :site, :subdomain
     belongs_to :site
-    
+
     # lookup site based on the request
-    # 
+    #
     # @param [Request]
     # @return [Domain]
-    def self.get_by_domain_name(request)      
+    def self.get_by_domain_name(request)
       if request.env['x-forwarded-for']
         origin = request.env['x-forwarded-for'].to_s
         domain_array = origin.split('.')

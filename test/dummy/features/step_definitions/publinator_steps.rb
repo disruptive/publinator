@@ -3,11 +3,12 @@ Given /^there is a section named "(.*?)"$/ do |name|
 end
 
 Given /^the "(.*?)" section has (a|an) "(.*?)" called "(.*?)"$/ do |arg1, aoran, arg2, arg3|
-  @obj = FactoryGirl.create(arg2.to_sym,
-    publication: Publinator::Publication.create(custom_slug: arg3, site: @site, section: @section),
-    section: @section,
-    body: "#{arg1.humanize} Section Index Page"
-  )
+  @page = FactoryGirl.build(arg2.to_sym,
+    section:  @section,
+    body:     "#{arg1.humanize} Section #{arg3.capitalize} Page",
+    site:     @site,
+    title:    arg3)
+  @page.save
 end
 
 When /^I am using "(.*?)"$/ do |hostname|

@@ -8,11 +8,7 @@
 </head>
 <body>
   <h1><%= link_to current_site.name, root_url %></h1>
-  <% current_site.sections.each do |s| %>
-    <%= link_to s.name, "/#{s.slug}" %>
-  <% end %>
-
+  <%= menu(current_site.sections).html_safe %>
   <%= yield %>
-
 </body>
 </html>

@@ -1,4 +1,5 @@
-class Article < Publinator::Publishable
+class Article < ActiveRecord::Base
   self.table_name = "articles"
-  attr_accessible :title, :body
+  acts_as_publishable
+  attr_accessible :title, :body, :section
 end
