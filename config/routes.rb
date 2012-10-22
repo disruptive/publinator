@@ -5,7 +5,7 @@ Publinator::Engine.routes.draw do
   namespace :manage do
 
     Publinator::PublishableType.all.each do |pt|
-      resources pt.name.pluralize.downcase.to_sym, :controller => "publishable", :publishable_type => pt.name.pluralize.downcase
+      resources pt.name.tableize.to_sym, :controller => "publishable", :publishable_type => pt.name.tableize
     end
 
     #constraints(Publinator::PublishableType) do
@@ -51,7 +51,7 @@ Publinator::Engine.routes.draw do
   #
 
   Publinator::PublishableType.all.each do |pt|
-    resources pt.name.pluralize.downcase.to_sym, :controller => "publishable", :only => [:index, :show], :publishable_type => pt.name.pluralize.downcase
+    resources pt.name.tableize.to_sym, :controller => "publishable", :only => [:index, :show], :publishable_type => pt.name.tableize
   end
 
 

@@ -64,7 +64,7 @@ module Publinator
       if self.publication.section
         "/#{self.publication.section.section_slug}/#{self.publication.slug}"
       else
-        "/#{self.class.to_s.pluralize}/#{self.publication.slug}"
+        "/#{self.class.to_s.tableize}/#{self.publication.slug}"
       end
     end
 
