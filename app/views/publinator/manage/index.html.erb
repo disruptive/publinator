@@ -3,7 +3,7 @@
 <%= link_to "Pages", "/manage/pages" %><br>
 <% @publishable_types.each do |pt| %>
   <% unless pt.name == "Page" %>
-    <%= link_to pt.name.pluralize, send("manage_#{pt.name.downcase.pluralize}_path") %><br>
+    <%= link_to pt.name.pluralize, send("manage_#{pt.name.tableize}_path") %><br>
   <% end %>
 <% end %>
 
