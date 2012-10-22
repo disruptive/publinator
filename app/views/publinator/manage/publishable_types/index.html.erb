@@ -1,0 +1,22 @@
+<h1>Listing manage_publishable_types</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @publishable_types.each do |publishable_type| %>
+  <tr>
+    <td><%= publishable_type.name %></td>
+    <td><%= link_to 'Show', manage_publishable_type_path(publishable_type) %></td>
+    <td><%= link_to 'Edit', edit_manage_publishable_type_path(publishable_type) %></td>
+    <td><%= link_to 'Destroy', manage_publishable_type_path(publishable_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Publishable type', new_manage_publishable_type_path %>

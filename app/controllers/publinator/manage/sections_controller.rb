@@ -1,7 +1,7 @@
 require_dependency "publinator/application_controller"
 
 module Publinator
-  class Manage::SectionsController < ApplicationController
+  class Manage::SectionsController < Publinator::ManageController
 
     before_filter :get_section, :except => [:index, :new]
 

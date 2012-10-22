@@ -1,7 +1,7 @@
 <h1><%= @publishable.title %></h1>
 
-<% @publishable.asset_types.each do |ai| %>
-  <%= publishable_asset(@publishable, ai) %>
+<% @publishable.asset_items.each do |ai| %>
+  <%= link_to(image_tag(ai.asset.url(:thumb)), ai.asset.url(:original), :target => "_new") %>
 <% end %>
 
 <p>

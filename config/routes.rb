@@ -36,6 +36,7 @@ Publinator::Engine.routes.draw do
     resources :pages
     resources :sites
     resources :sections
+    resources :publishable_types
   end
 
   #constraints(Publinator::PublishableType) do
@@ -48,6 +49,12 @@ Publinator::Engine.routes.draw do
       #:publishable_type => /\A([a-zA-Z]+[a-zA-Z_]*)\z/i
       #}, :as => "publishable"
   #end
+  #
+
+  Publinator::PublishableType.all.each do |pt|
+    resources pt.name.pluralize.downcase.to_sym, :controller => "publishable", :only => [:index, :show], :publishable_type => pt.name.pluralize.downcase
+  end
+
 
   constraints(Publinator::Section) do
     match '/:section/' => "section#index", :requirements => {
@@ -63,11 +70,6 @@ Publinator::Engine.routes.draw do
   match "/:slug", :controller => :home, :action => :page, :requirements => {
     :slug => /\A([a-zA-Z]+[a-zA-Z\-_]*)\z/i
   }, :as => 'publishable'
-
-  Publinator::PublishableType.all.each do |pt|
-    resources pt.name.pluralize.downcase.to_sym, :controller => "publishable", :only => [:index, :show]
-  end
-
 
   root :to  => "home#index"
   match '/' => 'home#index'

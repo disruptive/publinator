@@ -1,0 +1,19 @@
+<%= semantic_form_for [:manage, @publishable_type] do |f| %>
+  <% if @publishable_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@manage_publishable_type.errors.count, "error") %> prohibited this manage_publishable_type from being saved:</h2>
+
+      <ul>
+      <% @manage_publishable_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <%= f.inputs %>
+  <div class="actions">
+    <%= f.actions %>
+  </div>
+<% end %>

@@ -6,3 +6,8 @@
     <%= link_to pt.name.pluralize, send("manage_#{pt.name.downcase.pluralize}_path") %><br>
   <% end %>
 <% end %>
+
+<h3>Site Settings</h3>
+
+<%= link_to "Publishable Types", "/manage/publishable_types" %><br>
+

@@ -1,6 +1,6 @@
 module Publinator
   class PublishableType < ActiveRecord::Base
-    attr_accessible :name, :sluggable
+    attr_accessible :name, :sluggable, :layout
 
     def self.matches?(request)
       logger.info request.path_parameters

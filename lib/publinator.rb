@@ -42,17 +42,17 @@ module Publinator
       []
     end
 
-    def asset_file(asset_type_text)
-      publishable_asset = get_asset_by_type(asset_type_text)
-      publishable_asset.asset_file if publishable_asset
+    def asset_files(asset_type_text = nil)
+      return asset_items if !asset_type_text
+      asset_items.where(:asset_type => asset_type_text)
     end
 
     def my_slug
       publication.slug
     end
 
-    def asset_files
-      asset_types.collect{ |atype| asset_file(atype) }
+    def related_items(scope)
+      []
     end
 
     def editable_fields
@@ -81,14 +81,6 @@ module Publinator
       self.publication.section  = section unless !section
       self.publication.default  = default
     end
-
-    private
-
-      def get_asset_by_type(asset_type_text)
-        all_of_asset_type = asset_items.where(:asset_type => asset_type_text)
-        all_of_asset_type.first if all_of_asset_type && all_of_asset_type.length
-      end
-
   end
 end
 
