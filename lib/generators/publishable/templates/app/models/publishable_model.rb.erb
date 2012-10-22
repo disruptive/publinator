@@ -1,5 +1,5 @@
-class <%= class_name.capitalize %> < Publinator::Publishable
-
+class <%= class_name.capitalize %> < ActiveRecord::Base
   self.table_name = '<%= class_name.downcase.pluralize %>'
-
+  acts_as_publishable
+  attr_accessible :title, :body, :section
 end

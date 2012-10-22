@@ -1,7 +1,8 @@
 <tr>
-  <td><%= link_to summary.slug, manage_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+  <td><%= link_to summary.my_slug, [:manage, summary] %></td>
+  <td><%= link_to summary.publication.section.name if summary.publication.section %></td>
   <td><%= summary.updated_at %></td>
-  <td><%= link_to "edit", manage_edit_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
-  <td><%= link_to "show", manage_publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
-  <td><%= link_to "public", publishable_path(summary.publishable.class.to_s.downcase.pluralize, summary.slug) %></td>
+  <td><%= link_to "edit", send("edit_manage_#{@publishable_type_name.downcase}_path", summary) %></td>
+  <td><%= link_to "show", [:manage, summary] %></td>
+  <td><%= link_to "public", summary.path %></td>
 </tr>

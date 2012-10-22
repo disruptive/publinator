@@ -4,74 +4,110 @@ module Publinator
   class Manage::PublishableController < ApplicationController
     layout "publinator/manage"
 
+    before_filter :get_publishable
+
     def index
-      @publishables = Publinator::Publication.for_site(current_site.id).where(:publishable_type => params["publishable_type"].singularize.capitalize).order("updated_at desc")
       begin
-        render "manage/#{params[:publishable_type]}/index"
+        render "manage/#{@publishable_collection_name}/index"
       rescue ActionView::MissingTemplate
         render "publinator/manage/publishable/index"
       end
     end
 
     def show
-      @publication = Publinator::Publication.find_by_publishable_type_and_slug(params[:publishable_type].singularize.capitalize, params[:id])
-      @publishable = @publication.publishable_type.singularize.capitalize.constantize.send(:find, @publication.publishable_id)
       begin
-        render "#{params[:publishable_type]}/show"
+        render "manage/#{@publishable_collection_name}/show"
       rescue ActionView::MissingTemplate
         render "publinator/manage/publishable/show"
       end
     end
 
     def new
-      publishable_class = params['publishable_type'].singularize.capitalize.constantize
-      #@publication = Publinator::Publication.find_by_publishable_type_and_publishable_id(params[:publishable_type].singularize.capitalize, params[:id])
-      @publishable = publishable_class.send(:new, {
+      @publishable = @publishable_class.new(
         :publication => Publinator::Publication.new(
-          :publish_at => 1.day.from_now.beginning_of_day + 8.hours,
-          :archive_at => 31.days.from_now.beginning_of_day,
-          :site_id    => current_site.id,
-          :publishable_type => params['publishable_type'].singularize.capitalize
+          :publish_at       => 1.day.from_now.beginning_of_day + 8.hours,
+          :archive_at       => 31.days.from_now.beginning_of_day,
+          :site             => current_site,
+          :publishable_type => @publishable_type.name
         )
-      })
-      @field_names = (publishable_class.attribute_names - ["id", "created_at", "updated_at"]).collect{ |an| an.to_sym }
+      )
+      @publishable.asset_items.build
+      @field_names = @publishable.editable_fields.collect{ |an| an.to_sym }
       begin
-        render "#{params[:publishable_type]}/new"
+        render "manage/#{@publishable_collection_name}/new"
       rescue ActionView::MissingTemplate
         render "publinator/manage/publishable/new"
       end
     end
 
     def edit
-      @publication = Publinator::Publication.find_by_publishable_type_and_slug(params[:publishable_type].singularize.capitalize, params[:id])
-      @publishable = @publication.publishable_type.singularize.capitalize.constantize.send(:find, @publication.publishable_id)
+      @publishable.asset_items.build
+
       begin
-        render "#{params[:publishable_type]}/edit"
+        render "manage/#{@publishable_collection_name}/edit"
       rescue ActionView::MissingTemplate
         render "publinator/manage/publishable/edit"
       end
     end
 
     def create
-      @publishable_type = PublishableType.find_by_name(params['publishable_type'].singularize.capitalize)
-      @publishable_class = @publishable_type.name.capitalize.constantize
-      publishable_params = params[@publishable_type.name.downcase.to_sym]
-      publication_params = publishable_params.delete('publication').merge({ :site_id => current_site.id, :publishable_type => @publishable_type.name.capitalize })
-      publication_params.merge({:section_id => publishable_params[:section_id]}) if publishable_params[:section_id]
-      @publication = Publinator::Publication.create!(publication_params)
-      @publishable = @publishable_type.name.capitalize.constantize.send(:new, publishable_params, :publication => @publication)
+      @publishable = @publishable_class.new(params[@publishable_member_name.to_sym])
+      logger.info current_site.to_yaml
+      @publishable.publication.site = current_site
 
       if @publishable.save
-        @publication.publishable_id = @publishable.id
-        @publication.save
-        redirect_to "/manage/#{params[:publishable_type]}", :notice => "#{@publishable_type.name} created."
+        redirect_to "/manage/#{@publishable_collection_name}", :notice => "#{@publishable_type.name} created."
       else
         begin
-          render "#{params[:publishable_type]}/new", :notice => "#{@publishable_type.name} could not be created."
+          render "#{@publishable_collection_name}/new", :notice => "#{@publishable_type.name} could not be created."
         rescue ActionView::MissingTemplate
           render "publinator/manage/publishable/new", :notice => "#{@publishable_type.name} could not be created."
         end
       end
     end
+
+    def update
+      if @publishable_class.send(:update, @publishable.id, params[@publishable_class_name.downcase.to_sym])
+        redirect_to "/manage/#{@publishable_collection_name}", :notice => "#{@publishable_type.name} updated."
+      else
+        begin
+          render "#{@publishable_collection_name}/edit", :notice => "#{@publishable_type.name} could not be updated."
+        rescue ActionView::MissingTemplate
+          render "publinator/manage/publishable/edit", :notice => "#{@publishable_type.name} could not be updated."
+        end
+      end
+    end
+
+    private
+
+      def get_publishable
+        if params["publishable_type"].nil?
+          @publishable_class_name = "Page"
+          @publishable_collection_name = "pages"
+          @publishable_class = Publinator::Page
+          @publishable_type = PublishableType.find_by_name("Publinator::Page")
+          @publishable_type_name = @publishable_type.name
+        else
+          @publishable_class_name = params["publishable_type"].singularize.capitalize
+          @publishable_collection_name = params["publishable_type"]
+          @publishable_member_name = @publishable_class_name.downcase
+          @publishable_class = @publishable_class_name.constantize
+          @publishable_type = PublishableType.find_by_name(params['publishable_type'].singularize.capitalize)
+          @publishable_type_name = @publishable_type.name
+        end
+
+        @publications = Publinator::Publication.for_site(current_site.id).where(:publishable_type => @publishable_type.name).order("updated_at desc")
+        @publishables = @publications.collect{ |pub| pub.publishable }
+        if params[:id]
+          original_id = params[:id]
+          if original_id.to_i.to_s == params[:id]
+            @publishable = @publishable_class.send(:find, params[:id])
+            @publication = @publishable.publication
+          else
+            @publication = @publications.find(:first, :conditions => ["slug = ?", params[:id]])
+            @publishable = @publication.publishable
+          end
+        end
+      end
   end
 end

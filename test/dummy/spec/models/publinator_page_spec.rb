@@ -24,8 +24,8 @@ describe Publinator::Page do
 
     it "can create multiple pages in multiple sections" do
       site      = FactoryGirl.create(:site)
-      section1  = FactoryGirl.create(:section, site: site, name: 'Section One')
-      section2  = FactoryGirl.create(:section, site: site, name: 'Section Two')
+      section1  = FactoryGirl.create(:section, site: site, name: 'Section One', section_slug: 'section_one')
+      section2  = FactoryGirl.create(:section, site: site, name: 'Section Two', section_slug: 'section_two')
 
       page100   = Publinator::Page.new(title: "Title of Page 100", body: "Body of Page 100", site: site, section: section1, default: true)
       page101   = Publinator::Page.new(title: "Title of Page 101", body: "Body of Page 101", site: site, section: section1)

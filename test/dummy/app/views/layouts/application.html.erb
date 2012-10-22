@@ -8,7 +8,14 @@
 </head>
 <body>
   <h1><%= link_to current_site.name, root_url %></h1>
-  <%= menu(current_site.sections).html_safe %>
-  <%= yield %>
+  <ul class="nav_menu">
+    <% current_site.sections.each do |section| %>
+      <%= menu_section(section.name, section.path, section.menu_collection) %>
+    <% end %>
+    <%= menu_section("PRODUCTS", "", ProductType.all) %>
+  </ul>
+  <div id="content">
+    <%= yield %>
+  </div>
 </body>
 </html>

@@ -10,45 +10,31 @@ module Publinator
       RDiscount.new(markdown_text).to_html.html_safe
     end
 
-    def menu(array)
-      menu = content_tag(:ul, :class => 'nav_menu') do
-        menu_content = ""
-        array.each do |obj|
-          menu_content += menu_item(obj)
-        end
-        menu_content.html_safe
+    def menu_section(title, path = "", collection)
+      if path.blank?
+        ct = "<li>#{title}<br>"
+      else
+        ct = "<li><a href='#{path}'>#{title}</a><br>"
       end
-      menu.html_safe
+      if collection && collection.length && collection.length > 0
+        ct += "<div class='submenu'><ul>"
+        collection.each do |c|
+          ct += menu_section(c.title, c.path, c.menu_collection)
+        end
+        ct += "</ul></div>"
+      end
+      ct += "</li>"
+      ct.html_safe
     end
 
     def menu_item(obj)
-      logger.info "ready to create entry for #{obj.class} #{obj.id}"
-      if obj.class == Publinator::Publication
-        logger.info "publication's publishable is #{obj.publishable.class} #{obj.publishable.id}"
-      end
-      raise "No publishable found for #{obj.class} #{obj.id}" if !obj.publishable
-      tag_content = content_tag(:li) do
-        li_content = link_to obj.publishable.title, obj.publishable.path
-        if obj.respond_to? :publications
-          li_content += content_tag(:div, :class => "submenu") do
-            if obj.publications && obj.publications.length && obj.publications.length > 0
-              submenu_content = content_tag(:ul) do
-                sub_content = ""
-                obj.publications.each do |pub|
-                  logger.info "ready to create entry for #{pub.publishable_type} #{pub.publishable_id} #{pub.slug}"
-                  unless pub.slug == 'index'
-                    sub_content += menu_item(pub)
-                  end
-                end
-                sub_content.html_safe
-              end
-              li_content += submenu_content
-            end
-          end
-        end
-        li_content.html_safe
-      end
-      tag_content
+      menu_section(obj.title, obj.path, obj.menu_collection)
+    end
+
+    def publishable_asset(pub, asset_type)
+      return if !pub
+      asset = pub.asset_file(asset_type)
+      image_tag asset.url if asset
     end
   end
 end

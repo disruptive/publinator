@@ -1,10 +1,15 @@
-
 <h1><%= @publishable.title %></h1>
 
-<%= @publishable.body %>
+<% @publishable.asset_types.each do |ai| %>
+  <%= publishable_asset(@publishable, ai) %>
+<% end %>
+
+<p>
+<%= m(@publishable.body) %>
+</p>
 
 <div id="controls">
-  <%= link_to "Back", manage_publishables_path(@publishable.class.to_s.downcase.pluralize) %>
-  <%= link_to "Edit", manage_edit_publishable_path(@publishable.class.to_s.downcase.pluralize, @publishable) %>
-  <%= link_to "Delete", manage_publishable_path(@publishable.class.to_s.downcase.pluralize, @publishable.id), :method => :delete, :class => "danger", :confirm => "Delete this #{@publishable.class.to_s}?" %>
+  <%= link_to "Back",   send("manage_#{params[:publishable_type]}_path") %>
+  <%= link_to "Edit",   send("edit_manage_#{params[:publishable_type].singularize}_path", @publishable) %>
+  <%= link_to "Delete", send("manage_#{params[:publishable_type].singularize}_path", @publishable), :method => :delete, :class => "danger", :confirm => "Delete this #{@publishable.class.to_s}?" %>
 </div>

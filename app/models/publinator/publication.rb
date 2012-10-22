@@ -3,7 +3,7 @@ module Publinator
     # has_paper_trail
     attr_accessible :custom_slug, :parent_id, :publication_state_id,
       :publishable_id, :publishable_type, :slug, :publish_at,
-      :unpublish_at, :archive_at, :section, :default, :publishable, :site
+      :unpublish_at, :archive_at, :section, :default, :publishable, :site, :section_id
     belongs_to :publishable, :polymorphic => true
     belongs_to :section, :class_name => "Publinator::Section"
     belongs_to :site
@@ -18,6 +18,8 @@ module Publinator
     scope :published, where(:publication_state_id => 1)
     scope :for_site, lambda { |site_id| where("site_id = ?", site_id) }
 
+    delegate :title, :path, :menu_collection, :to => :publishable
+
     def content
       publishable_type.constantize.find(publishable_id)
     end
@@ -31,6 +33,11 @@ module Publinator
           self.slug = custom_slug
         elsif publishable.present? && publishable.title.present?
           self.slug = self.publishable.title.strip.downcase.gsub(/[^a-zA-Z0-9\-\_]/, '_')
+          self.slug = self.slug.gsub("___", "_")
+          self.slug = self.slug.gsub("__", "_")
+          if slug.end_with?("_")
+            self.slug = self.slug.chop
+          end
         else
           self.slug = "temporary_slug_#{rand(100000)}"
         end

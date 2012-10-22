@@ -1,5 +1,8 @@
 <h2>Content Manager Home Page</h2>
 
+<%= link_to "Pages", "/manage/pages" %><br>
 <% @publishable_types.each do |pt| %>
-<%= link_to pt.name.pluralize, "/manage/#{pt.name.downcase.pluralize}" %>
+  <% unless pt.name == "Page" %>
+    <%= link_to pt.name.pluralize, send("manage_#{pt.name.downcase.pluralize}_path") %><br>
+  <% end %>
 <% end %>

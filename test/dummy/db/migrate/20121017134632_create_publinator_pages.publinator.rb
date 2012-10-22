@@ -8,6 +8,8 @@ class CreatePublinatorPages < ActiveRecord::Migration
       t.string :teaser
       t.text :body
       t.integer :section_id
+      t.integer :position
+      t.integer :site_id
 
       t.timestamps
     end

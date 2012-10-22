@@ -34,13 +34,13 @@ module Dummy
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    
+
     config.generators do |g|
       g.test_framework :rspec,
-        :fixtures => true,
+        :fixtures => false,
         :view_specs => false,
-        :helper_specs => false,
-        :routing_specs => false,
+        :helper_specs => true,
+        :routing_specs => true,
         :controller_specs => false,
         :request_specs => false
       g.fixture_replacement :factory_girl, :dir => "spec/factories"

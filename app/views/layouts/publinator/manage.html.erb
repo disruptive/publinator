@@ -10,7 +10,9 @@
   <div id="header">
     <h3><%= link_to "Managing", manage_path %> <%= link_to (current_site_name || "Publinator"), root_url, :target => "_new" %></h3>
   </div>
-  <div id="content">  
+  <div id="content">
+    <%= alert if alert %>
+    <%= notice if notice %>
     <%= yield %>
   </div>
   <div id="footer">

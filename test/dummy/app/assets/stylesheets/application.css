@@ -11,3 +11,21 @@
  *= require_self
  *= require_tree .
 */
+
+ul.nav_menu {
+  margin: 0px;
+  padding: 0px;
+  width: 960px;
+}
+
+ul.nav_menu li {
+}
+
+
+div.submenu ul {
+
+}
+
+#content {
+  clear: both;
+}

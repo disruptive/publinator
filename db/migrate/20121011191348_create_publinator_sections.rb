@@ -6,6 +6,7 @@ class CreatePublinatorSections < ActiveRecord::Migration
       t.boolean :layout
       t.integer :site_id
       t.string :section_slug
+      t.integer :position
 
       t.timestamps
     end

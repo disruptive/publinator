@@ -26,6 +26,14 @@ p "creating first article...."
 Article.create!(:section => section, :title => "Latest of the Latest", :body => "This is some article text.", :site => site)
 Article.create!(:section => section, :title => "The last one", :body => "The last one, indeed.", :site => site)
 
+product_type = ProductType.create!(:title => "First Product Type", :site => site)
+Product.create!(title: 'Product One', site: site, product_type: product_type)
+Product.create!(title: 'Product Two', site: site, product_type: product_type)
+
+product_type2 = ProductType.create!(:title => "Second Product Type", :site => site)
+Product.create!(title: 'Product Three', site: site, product_type: product_type2)
+Product.create!(title: 'Product Four', site: site, product_type: product_type2)
+
 # workflows
 #
 # string  :name

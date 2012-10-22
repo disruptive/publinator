@@ -1,0 +1,8 @@
+<tr>
+  <td><%= link_to summary.publication.slug, manage_page_path(summary) %></td>
+  <td><%= link_to summary.section.name if summary.section %></td>
+  <td><%= summary.updated_at %></td>
+  <td><%= link_to "edit", edit_manage_page_path(summary) %></td>
+  <td><%= link_to "show", manage_page_path(summary) %></td>
+  <td><%= link_to "public", summary.path %></td>
+</tr>

@@ -11,6 +11,12 @@ Given /^the "(.*?)" section has (a|an) "(.*?)" called "(.*?)"$/ do |arg1, aoran,
   @page.save
 end
 
+Given /^"(.*?)" can publish "(.*?)"/ do |hostname, publishable_type_name|
+  host! hostname
+  Capybara.app_host = "http://#{hostname}"
+  FactoryGirl.create(:publishable_type, name: publishable_type_name.singularize.capitalize)
+end
+
 When /^I am using "(.*?)"$/ do |hostname|
   host! hostname
   Capybara.app_host = "http://#{hostname}"
@@ -19,6 +25,15 @@ end
 When /^I visit the home page$/ do
   visit("/")
 end
+
+When /^I visit the manage page$/ do
+  visit("/manage/")
+end
+
+When /^I follow "(.*?)"$/ do |link_name|
+  click_link(link_name)
+end
+
 
 When /^I visit "(.*?)"$/ do |path|
   visit(path)

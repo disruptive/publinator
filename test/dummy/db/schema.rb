@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017134632) do
+ActiveRecord::Schema.define(:version => 20121021214609) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,41 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.integer  "section_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "product_types", :force => true do |t|
+    t.string   "title"
+    t.string   "teaser"
+    t.text     "body"
+    t.integer  "site_id"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.string   "title"
+    t.string   "teaser"
+    t.text     "body"
+    t.integer  "site_id"
+    t.integer  "product_type_id"
+    t.integer  "position"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "publinator_asset_items", :force => true do |t|
+    t.string   "asset_type"
+    t.integer  "assetable_id"
+    t.string   "assetable_type"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "asset_file_file_name"
+    t.string   "asset_file_content_type"
+    t.datetime "asset_file_updated_at"
+    t.string   "asset_file_identifier"
+    t.string   "asset_file_extension"
+    t.integer  "asset_file_file_size"
   end
 
   create_table "publinator_domain_names", :force => true do |t|
@@ -38,6 +73,8 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.string   "teaser"
     t.text     "body"
     t.integer  "section_id"
+    t.integer  "position"
+    t.integer  "site_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -52,11 +89,14 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.integer  "site_id"
     t.integer  "publication_state_id"
     t.integer  "parent_id"
+    t.integer  "section_id"
     t.string   "custom_slug"
     t.string   "slug"
-    t.string   "publishable_type"
+    t.datetime "publish_at"
+    t.datetime "unpublish_at"
+    t.datetime "archive_at"
     t.integer  "publishable_id"
-    t.integer  "section_id"
+    t.string   "publishable_type"
     t.boolean  "default"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
@@ -74,9 +114,10 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
     t.integer  "parent_id"
     t.boolean  "layout"
     t.integer  "site_id"
-    t.string   "slug"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "section_slug"
+    t.integer  "position"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "publinator_site_workflows", :force => true do |t|
@@ -127,5 +168,11 @@ ActiveRecord::Schema.define(:version => 20121017134632) do
   end
 
   add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
+
+  create_table "widgets", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

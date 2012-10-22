@@ -1,7 +1,7 @@
 # TODO Validate new sections - can't conflict with publishable_types
 module Publinator
   class Section < ActiveRecord::Base
-    attr_accessible :layout, :name, :parent_id, :site, :section_slug
+    attr_accessible :layout, :name, :parent_id, :site, :section_slug, :position
     belongs_to :site, :class_name => "Publinator::Site"
     has_many :publications, :class_name => "Publinator::Publication"
     before_create :generate_section_slug
@@ -23,6 +23,10 @@ module Publinator
 
     def path
       "/#{section_slug}"
+    end
+
+    def menu_collection
+      publications
     end
 
     def publishable

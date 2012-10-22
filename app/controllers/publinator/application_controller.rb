@@ -1,7 +1,7 @@
 module Publinator
   class ApplicationController < ActionController::Base
     layout :current_layout
-
+    before_filter :in_a_site
     helper_method :current_site, :current_domain, :current_layout, :current_site_name
 
     def current_site_name
@@ -25,5 +25,11 @@ module Publinator
         @current_layout ||= current_site.layout
       end
     end
+
+    private
+
+      def in_a_site
+        raise "No site found" unless current_site.present?
+      end
   end
 end
