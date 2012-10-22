@@ -2,7 +2,7 @@
 <h1><%= @page.title %></h1>
 
 <% @page.asset_types.each do |ai| %>
-  <%= image_tag @page.asset_items.where(:asset_type => ai).first.asset_file.url %>
+  <%=  image_tag @page.asset_files("header").first.asset.url if @page.asset_files("header") && @page.asset_files("header").first %>
 <% end %>
 
 <p>

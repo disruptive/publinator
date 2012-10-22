@@ -11,7 +11,8 @@ class CreatePublinatorPublications < ActiveRecord::Migration
       t.datetime    :publish_at
       t.datetime    :unpublish_at
       t.datetime    :archive_at
-      t.references  :publishable, :polymorphic => true
+      t.string      :publishable_type
+      t.integer     :publishable_id
       t.boolean     :default
 
       t.timestamps

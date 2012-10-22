@@ -13,7 +13,7 @@
     <%= form.semantic_fields_for :asset_items do |asset_form| %>
       <%= asset_form.inputs "Asset" do %>
         <%= asset_form.input :asset_type, :as => :select, :collection => @page.asset_types %>
-        <%= asset_form.input :asset_file, :as => :file %>
+        <%= asset_form.input :asset, :as => :file %>
       <% end %>
     <% end %>
   <% end %>

@@ -9,7 +9,7 @@ class CreatePublinatorSites < ActiveRecord::Migration
       t.string :abbr
       t.string :type
       t.boolean :default
-      
+
       t.timestamps
     end
   end
