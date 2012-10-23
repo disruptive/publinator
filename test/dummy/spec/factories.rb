@@ -25,7 +25,7 @@ FactoryGirl.define do
   end
 
   factory :product_type do
-    title       "First Product"
+    title       "Widget Type"
     body        "Product Text is here. Right here in the factory."
     association :site
   end

@@ -10,9 +10,9 @@
   <h1><%= link_to current_site.name, root_url %></h1>
   <ul class="nav_menu">
     <% current_site.sections.each do |section| %>
-      <%= menu_section(section.name, section.path, section.menu_collection) %>
+      <%= menu_item(section) %>
     <% end %>
-    <%= menu_section("PRODUCTS", "", ProductType.all) %>
+    <%= menu_item(ProductType.all) %>
   </ul>
   <div id="content">
     <%= yield %>

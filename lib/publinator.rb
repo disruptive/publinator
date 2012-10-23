@@ -38,6 +38,10 @@ module Publinator
       end
     end
 
+    def is_publishable?
+      true
+    end
+
     def asset_types
       []
     end
@@ -48,6 +52,11 @@ module Publinator
     end
 
     def my_slug
+      if self.respond_to?(:slug)
+        unless self.slug.blank?
+          return slug
+        end
+      end
       publication.slug
     end
 

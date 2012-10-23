@@ -6,6 +6,7 @@ module Publinator
     has_many :publications, :class_name => "Publinator::Publication"
     before_create :generate_section_slug
     alias_attribute :title, :name
+    alias_attribute :slug, :section_slug
 
     def self.matches?(request)
       pt = self.find(:first, :conditions => ["section_slug = ?", request.path_parameters[:section]])
