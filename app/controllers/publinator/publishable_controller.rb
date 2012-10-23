@@ -4,8 +4,7 @@ module Publinator
   class PublishableController < Publinator::ApplicationController
     def index
       @publication = Publinator::Publication.find_by_publishable_type_and_slug(params[:publishable_type].classify, 'index')
-      if @publication.nil?
-        @publication = Publinator::Publication.find_by_slug(params[:publishable_type])
+      if @publication
         @publishable = @publication.publishable
         begin
           render "#{params[:publishable_type]}/show"
