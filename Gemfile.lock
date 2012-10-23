@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    publinator (0.0.15)
+    publinator (0.0.16)
       formtastic
       jquery-rails
       paper_trail

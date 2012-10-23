@@ -62,7 +62,7 @@ module Publinator
           div_contents += content_tag(:ul) do
             next_contents = ""
             object.each do |o|
-              next_contents += li_tag(o)
+              next_contents += li_tag(o) unless o.respond_to?(:hide_in_submenu) && o.hide_in_submenu
             end
             next_contents.html_safe
           end
