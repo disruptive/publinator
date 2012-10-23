@@ -12,7 +12,7 @@ module Publinator
           render "publinator/publishable/show"
         end
       else
-        @publishables = current_site.publications('published', 'updated_at desc', params[:publishable_type].classify)
+        @publishables = params[:publishable_type].classify.constantize.all
         begin
           render "#{params[:publishable_type]}/index"
         rescue ActionView::MissingTemplate
