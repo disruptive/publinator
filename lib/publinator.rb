@@ -82,7 +82,6 @@ module Publinator
     end
 
     def verify_publication
-      logger.info "verifying publication"
       if publication.nil?
         self.publication = Publinator::Publication.new(:publishable => self)
       end

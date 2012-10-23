@@ -25,7 +25,6 @@ module Publinator
     end
 
     def generate_slug
-      logger.info "generating slug"
       if self.slug.blank? || slug =~ /temporary_slug\d?/
         if default
           self.slug = 'index'
@@ -42,7 +41,6 @@ module Publinator
           self.slug = "temporary_slug_#{rand(100000)}"
         end
       end
-      logger.info "slug is #{ slug }"
     end
 
     def self.get_by_slug(slug)

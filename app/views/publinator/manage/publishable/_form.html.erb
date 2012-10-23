@@ -1,6 +1,5 @@
 <%= semantic_form_for [:manage, @publishable], :html => { :multipart => true } do |form| %>
   <% if @publishable.errors && @publishable.errors.count > 0 %>
-  <% logger.info @publishable_errors.to_yaml %>
     <% @publishable.errors.full_messages.each do |e| %>
       <%= e %><br>
     <% end %>

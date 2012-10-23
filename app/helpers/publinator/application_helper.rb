@@ -12,7 +12,6 @@ module Publinator
     end
 
     def menu_section(title, path = "", collection)
-      logger.info "Generating Menu Section for #{title}"
       if path.blank?
         ct = "
         <li id=\"#{title.underscore}\">#{title}<br>\n"
@@ -28,8 +27,6 @@ module Publinator
         end
         ct += "</ul>
         </div>"
-      else
-        logger.info "collection: #{ collection } did not generate a submenu."
       end
       ct += "</li>"
       ct.html_safe
