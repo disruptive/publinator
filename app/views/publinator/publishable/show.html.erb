@@ -1,1 +1,5 @@
 <%= m(@publishable.body) %>
+
+<% if @publishable.respond_to?(:publishables) %>
+  <%= render :collection => @publishable.publishables, :partial => "summary" %>
+<% end %>

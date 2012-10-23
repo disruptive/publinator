@@ -41,10 +41,10 @@ module Publinator
       end
     end
 
-    def collection_li_tag(object)
-      collection_title = object.first.collection_name
+    def collection_li_tag(object, li_collection_title = nil, li_collection_path = nil)
+      collection_title = li_collection_title.present? ? li_collection_title : object.first.collection_name
       collection_slug  = object.first.class.to_s.tableize.humanize
-      collection_path  = "/#{object.first.class.to_s.tableize}"
+      collection_path  = li_collection_path.present? ? li_collection_path : "/#{object.first.class.to_s.tableize}"
 
       # object is an array
       #   1. add a link to the collection name

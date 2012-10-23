@@ -12,7 +12,7 @@
     <% current_site.sections.each do |section| %>
       <%= menu_item(section) %>
     <% end %>
-    <%= menu_item(ProductType.all) %>
+    <%= collection_li_tag(ProductType.all, "Custom Name for Product Link", "/products") %>
   </ul>
   <div id="content">
     <%= yield %>
