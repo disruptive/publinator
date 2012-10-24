@@ -9,7 +9,8 @@ module Publinator
         has_one   :publication,
             :as           =>  :publishable,
             :class_name   =>  "Publinator::Publication",
-            :foreign_key  =>  :publishable_id
+            :foreign_key  =>  :publishable_id,
+            :dependent    =>  :destroy
 
         accepts_nested_attributes_for   :publication
         validates_presence_of           :publication

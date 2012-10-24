@@ -27,11 +27,11 @@ module Publinator
       end
       if request_domain.present?
         if request_subdomain.blank? || request_subdomain == 'www'
-          @domain = self.find(:first, :conditions => ["name = ? AND (subdomain is null or subdomain = '')", request_domain])
+          @domain = self.find(:first, :conditions => ["name = ? AND (subdomain is null or subdomain = '')", request_domain.downcase])
         elsif request_subdomain.present? && request_subdomain != 'www'
-          @domain = self.find(:first, :conditions => ["name = ? AND subdomain = ?", request_domain, request_subdomain])
+          @domain = self.find(:first, :conditions => ["name = ? AND subdomain = ?", request_domain.downcase, request_subdomain.downcase])
         else
-          @domain = self.find(:first, :conditions => ["name = ? AND subdomain = 'www' AND anchor = ?", request_domain, true])
+          @domain = self.find(:first, :conditions => ["name = ? AND subdomain = 'www' AND anchor = ?", request_domain.downcase, true])
         end
       else
         @domain = Site.default.domain_names.detect { |d| d.default }

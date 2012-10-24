@@ -1,5 +1,5 @@
-class <%= class_name.classify %> < ActiveRecord::Base
-  self.table_name = '<%= class_name.tableize %>'
+class <%= name.classify %> < ActiveRecord::Base
+  self.table_name = '<%= name.tableize %>'
   acts_as_publishable
   attr_accessible :title, :body, :position, :site
 end

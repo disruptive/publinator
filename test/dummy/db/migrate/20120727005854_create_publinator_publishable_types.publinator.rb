@@ -5,6 +5,7 @@ class CreatePublinatorPublishableTypes < ActiveRecord::Migration
       t.string :name
       t.boolean :sluggable, :default => true
       t.boolean :layout, :default => true
+      t.string  :use_layout
       t.timestamps
     end
   end
