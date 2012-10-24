@@ -26,8 +26,6 @@ module Publinator
           render "#{params[:section]}/#{@publication.slug}"
         end
       rescue ActionView::MissingTemplate
-        render "#{params[:section]}/show"
-      rescue ActionView::MissingTemplate
         render "publinator/publishable/show"
       end
     end
