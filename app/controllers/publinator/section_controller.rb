@@ -9,8 +9,6 @@ module Publinator
       @publishable = @publication.publishable
       @publishable_type = Publinator::PublishableType.find_by_name(@publication.publishable_type.classify)
       begin
-        render "#{@publishable_type.tableize}/index"
-      rescue ActionView::MissingTemplate
         render "#{params[:section]}/index"
       rescue ActionView::MissingTemplate
         render "publinator/publishable/show"
