@@ -4,7 +4,7 @@
   <%= render :collection => @publishable.publishables, :partial => "summary" %>
 <% end %>
 
-<% if @publication.collection %>
+<% if @publication.collection_publishable_type_id && @publication.collection %>
 <div class="<%= @publication.collection.first.class.to_s.pluralize.underscore %>">
   <%= render :collection => @publication.collection, :partial => "/object_blocks/#{@publication.collection.first.class.to_s.underscore}" %>
 </div>
