@@ -3,7 +3,8 @@ module Publinator
     # has_paper_trail
     attr_accessible :custom_slug, :parent_id, :publication_state_id,
       :publishable_id, :publishable_type, :slug, :publish_at, :hide_in_submenu,
-      :unpublish_at, :archive_at, :section, :default, :publishable, :site, :section_id
+      :unpublish_at, :archive_at, :section, :default, :publishable, :site,
+      :section_id, :collection_publishable_type_id, :collection_scope
     belongs_to :publishable, :polymorphic => true
     belongs_to :section, :class_name => "Publinator::Section"
     belongs_to :site
@@ -19,6 +20,13 @@ module Publinator
     scope :for_site, lambda { |site_id| where("site_id = ?", site_id) }
 
     delegate :title, :path, :menu_collection, :to => :publishable
+
+    def collection
+      return unless collection_publishable_type_id
+      pt = Publinator::PublishableType.find(collection_publishable_type_id)
+      return if !pt
+      pt.name.constantize.send(collection_scope.to_sym)
+    end
 
     def content
       publishable_type.constantize.find(publishable_id)

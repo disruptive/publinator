@@ -5,5 +5,6 @@
     validates_presence_of :assetable
 
     has_attached_file :asset
+    default_scope order('updated_at desc')
   end
 #end

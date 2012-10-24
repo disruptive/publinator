@@ -7,7 +7,9 @@ module Publinator
     def index
       @publication = Publinator::Publication.find_by_section_id_and_slug(@section.id, 'index')
       @publishable = @publication.publishable
-      @publishable_type = Publinator::PublishableType.find_by_name(@publication.publishable_type.classify)
+      if @publication.publishable_type
+        @publishable_type = Publinator::PublishableType.find_by_name(@publication.publishable_type.classify)
+      end
       begin
         render "#{params[:section]}/index"
       rescue ActionView::MissingTemplate
@@ -18,7 +20,9 @@ module Publinator
     def show
       @publication = Publinator::Publication.find(:first, :conditions => ["section_id = ? and slug = ?", @section.id, params[:id]])
       @publishable = @publication.publishable
-      @publishable_type = Publinator::PublishableType.find_by_name(@publication.publishable_type.classify)
+      if @publication.publishable_type
+        @publishable_type = Publinator::PublishableType.find_by_name(@publication.publishable_type.classify)
+      end
       begin
         if @publishable_type
           render "#{@publishable_type.tableize}/show"

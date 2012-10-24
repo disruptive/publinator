@@ -12,6 +12,9 @@
   <% if @publishable.asset_types.length > 0 %>
     <%= form.semantic_fields_for :asset_items do |asset_form| %>
       <%= asset_form.inputs "Asset" do %>
+        <% if asset_form.object.asset.present? %>
+          <%= link_to(image_tag(asset_form.object.asset.url(:thumb)), asset_form.object.asset.url(:original), :target => "_new") %>
+        <% end %>
         <%= asset_form.input :asset_type, :as => :select, :collection => @publishable.asset_types %>
         <%= asset_form.input :asset, :as => :file %>
       <% end %>
@@ -20,6 +23,8 @@
   <%= form.semantic_fields_for :publication do |pub| %>
     <%= pub.inputs "Publication Settings" do %>
       <%= pub.input :custom_slug, :required => false %>
+      <%= pub.input :collection_publishable_type_id, :as => :select, :collection => Publinator::PublishableType.all, :required => false %>
+      <%= pub.input :collection_scope, :required => false %>
       <%= pub.input :publish_at, :as => :datetime_select, :required => false %>
       <%= pub.input :unpublish_at, :as => :datetime_select, :required => false %>
       <%= pub.input :archive_at, :as => :datetime_select, :required => false %>
