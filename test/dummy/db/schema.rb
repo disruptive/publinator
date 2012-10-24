@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121021214609) do
+ActiveRecord::Schema.define(:version => 20121024004238) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20121021214609) do
     t.integer  "section_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "position"
   end
 
   create_table "product_types", :force => true do |t|
@@ -54,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20121021214609) do
     t.string   "asset_file_identifier"
     t.string   "asset_file_extension"
     t.integer  "asset_file_file_size"
+    t.integer  "position"
   end
 
   create_table "publinator_domain_names", :force => true do |t|
@@ -98,8 +100,9 @@ ActiveRecord::Schema.define(:version => 20121021214609) do
     t.integer  "publishable_id"
     t.string   "publishable_type"
     t.boolean  "default"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "hide_in_submenu",      :default => false
   end
 
   create_table "publinator_publishable_types", :force => true do |t|
@@ -107,6 +110,7 @@ ActiveRecord::Schema.define(:version => 20121021214609) do
     t.string   "sluggable",  :default => "t"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "position"
   end
 
   create_table "publinator_sections", :force => true do |t|

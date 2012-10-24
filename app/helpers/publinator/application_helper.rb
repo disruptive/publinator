@@ -11,28 +11,6 @@ module Publinator
       RDiscount.new(markdown_text).to_html.html_safe
     end
 
-    def menu_section(title, path = "", collection)
-      if path.blank?
-        ct = "
-        <li id=\"#{title.underscore}\">#{title}<br>\n"
-      else
-        ct = "
-        <li id=\"#{title.underscore}\"><a href='#{path}'>#{title}</a><br>\n"
-      end
-      if collection && collection.length && collection.length > 0
-        ct += "<div class='submenu'>
-        <ul>"
-        collection.each do |c|
-          ct += menu_section(c.title, c.path, c.menu_collection)
-        end
-        ct += "</ul>
-        </div>"
-      end
-      ct += "</li>"
-      ct.html_safe
-    end
-
-
     def menu_item(object)
       if object.respond_to?(:is_publishable?)
         li_tag(object)
@@ -42,6 +20,7 @@ module Publinator
     end
 
     def collection_li_tag(object, li_collection_title = nil, li_collection_path = nil)
+      return if object.respond_to?(:hide_in_submenu) && object.hide_in_submenu
       collection_title = li_collection_title.present? ? li_collection_title : object.first.collection_name
       collection_slug  = object.first.class.to_s.tableize.humanize
       collection_path  = li_collection_path.present? ? li_collection_path : "/#{object.first.class.to_s.tableize}"
@@ -90,7 +69,7 @@ module Publinator
         div_content = ""
         ul_content = ""
         div_content += content_tag(:ul) do
-          object.menu_collection.each{ |mco| ul_content += li_tag(mco) }
+          object.menu_collection.each{ |mco| ul_content += li_tag(mco) unless mco.respond_to?(:hide_in_submenu) && mco.hide_in_submenu }
           ul_content.html_safe
         end
         div_content.html_safe
