@@ -14,4 +14,4 @@
   <%= render :collection => @publishables, :partial => "summary" %>
 </table>
 
-<%= link_to "Add #{@publishable_class_name}", send("new_manage_#{@publishable_class_name.downcase}_path") %>
+<%= link_to "Add #{@publishable_class_name}", send("new_manage_#{@publishable_member_name}_path") %>

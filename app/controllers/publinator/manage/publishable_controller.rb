@@ -88,11 +88,11 @@ module Publinator
           @publishable_type = PublishableType.find_by_name("Publinator::Page")
           @publishable_type_name = @publishable_type.name
         else
-          @publishable_class_name = params["publishable_type"].singularize.capitalize
+          @publishable_class_name = params["publishable_type"].classify
           @publishable_collection_name = params["publishable_type"]
-          @publishable_member_name = @publishable_class_name.downcase
+          @publishable_member_name =  params["publishable_type"].singularize.downcase
           @publishable_class = @publishable_class_name.constantize
-          @publishable_type = PublishableType.find_by_name(params['publishable_type'].singularize.capitalize)
+          @publishable_type = PublishableType.find_by_name(params['publishable_type'].classify)
           @publishable_type_name = @publishable_type.name
         end
 

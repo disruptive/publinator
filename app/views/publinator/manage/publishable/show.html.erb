@@ -10,6 +10,6 @@
 
 <div id="controls">
   <%= link_to "Back",   send("manage_#{params[:publishable_type]}_path") %>
-  <%= link_to "Edit",   send("edit_manage_#{params[:publishable_type].singularize}_path", @publishable) %>
+  <%= link_to "Edit",   send("edit_manage_#{@publishable_collection_name}_path", @publishable) %>
   <%= link_to "Delete", send("manage_#{params[:publishable_type].singularize}_path", @publishable), :method => :delete, :class => "danger", :confirm => "Delete this #{@publishable.class.to_s}?" %>
 </div>

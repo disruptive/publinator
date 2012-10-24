@@ -2,7 +2,7 @@ module Publinator
   class Publication < ActiveRecord::Base
     # has_paper_trail
     attr_accessible :custom_slug, :parent_id, :publication_state_id,
-      :publishable_id, :publishable_type, :slug, :publish_at,
+      :publishable_id, :publishable_type, :slug, :publish_at, :hide_in_submenu,
       :unpublish_at, :archive_at, :section, :default, :publishable, :site, :section_id
     belongs_to :publishable, :polymorphic => true
     belongs_to :section, :class_name => "Publinator::Section"
