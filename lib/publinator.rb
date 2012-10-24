@@ -35,6 +35,7 @@ module Publinator
         attr_accessor                   :default
 
         scope :non_index, joins(:publication).where("publication.slug != 'index'")
+        default_scope order("position")
       end
     end
 
