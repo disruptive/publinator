@@ -12,4 +12,22 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
+//= require_directory "./manage"
 //= require_self
+
+$(function() {
+  $(".sortable_list").sortable({
+    update: function(){
+      $.ajax({
+        type: 'post',
+        data: $('.sortable_list').sortable('serialize'),
+        dataType: 'script',
+        complete: function(request){ $('.sortable_list').effect('highlight');},
+        url: $(".sortable_list").attr("sorturl")
+      })
+    }
+  });
+  $(".sortable_list").disableSelection();
+});
+

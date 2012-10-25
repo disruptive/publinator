@@ -25,18 +25,16 @@ module Publinator
         accepts_nested_attributes_for   :asset_items, :reject_if => :all_blank
 
         before_validation               :verify_publication
-        belongs_to                      :site,    :class_name => "Publinator::Site"
-        belongs_to                      :section, :class_name => "Publinator::Section"
 
         attr_accessible                 :site, :publication, :section, :default,
                                         :position, :asset_items_attributes,
-                                        :custom_slug,
+                                        :custom_slug, :site_id, :section_id,
                                         :publication_attributes
 
         attr_accessor                   :default
 
         scope :non_index, joins(:publication).where("publication.slug != 'index'")
-        default_scope order("position")
+        delegate :site, :section, :slug, :to => :publication
       end
     end
 
@@ -54,12 +52,7 @@ module Publinator
     end
 
     def my_slug
-      if self.respond_to?(:slug)
-        unless self.slug.blank?
-          return slug
-        end
-      end
-      publication.slug
+      slug
     end
 
     def related_items(scope)
@@ -67,13 +60,13 @@ module Publinator
     end
 
     def editable_fields
-      attribute_names - ["id", "created_at", "updated_at", "section_id", "site_id"]
+      attribute_names - ["id", "created_at", "updated_at"]
     end
 
     def path
       raise "publication not found" if !self.publication
       if self.publication.section
-        "/#{self.publication.section.section_slug}/#{self.publication.slug}"
+        "#{self.publication.section.path}/#{self.publication.slug}"
       else
         "/#{self.class.to_s.tableize}/#{self.publication.slug}"
       end

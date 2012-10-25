@@ -8,7 +8,7 @@
 </head>
 <body>
   <div id="header">
-    <h3><%= link_to "Managing", manage_path %> <%= link_to (current_site_name || "Publinator"), root_url, :target => "_new" %></h3>
+    <h3><%= link_to "Managing", manage_path %> :: <%= link_to (current_site_name || "Publinator"), manage_path %></h3>
   </div>
   <div id="content">
     <%= alert if alert %>
@@ -16,6 +16,7 @@
     <%= yield %>
   </div>
   <div id="footer">
+    <%= link_to "Public Site", "/", :target => "_new"%>
   </div>
 </body>
 </html>

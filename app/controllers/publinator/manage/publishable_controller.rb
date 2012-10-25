@@ -78,6 +78,16 @@ module Publinator
       end
     end
 
+    def sort
+      collection_class = @publishable.collection_name.singularize.downcase
+      @publishable.menu_collection.each do |item|
+        item.position = params[collection_class].index(item.id.to_s) + 1
+        item.save
+      end
+      render :nothing => true
+    end
+
+
     private
 
       def get_publishable

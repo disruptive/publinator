@@ -5,7 +5,11 @@ Publinator::Engine.routes.draw do
   namespace :manage do
 
     Publinator::PublishableType.all.each do |pt|
-      resources pt.name.tableize.to_sym, :controller => "publishable", :publishable_type => pt.name.tableize
+      resources pt.name.tableize.to_sym, :controller => "publishable", :publishable_type => pt.name.tableize do
+        member do
+          post :sort
+        end
+      end
     end
 
     #constraints(Publinator::PublishableType) do
@@ -32,9 +36,17 @@ Publinator::Engine.routes.draw do
         #}, :as => "publishable"
     #end
 
-    resources :pages
+    resources :pages do
+      collection do
+        post :sort
+      end
+    end
     resources :sites
-    resources :sections
+    resources :sections do
+      member do
+        post :sort
+      end
+    end
     resources :publishable_types
   end
 

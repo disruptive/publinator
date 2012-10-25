@@ -1,8 +1,9 @@
-<tr>
-  <td><%= link_to summary.publication.slug, manage_page_path(summary) %></td>
-  <td><%= link_to summary.section.name if summary.section %></td>
-  <td><%= summary.updated_at %></td>
-  <td><%= link_to "edit", edit_manage_page_path(summary) %></td>
-  <td><%= link_to "show", manage_page_path(summary) %></td>
-  <td><%= link_to "public", summary.path %></td>
-</tr>
+<li class="ui-state-default" id="page_<%= summary.id %>">
+  <%= link_to summary.publication.slug, edit_manage_page_path(summary) %><br>
+  <%= truncate(summary.title, :length => 80) %>
+  <%= link_to summary.section.name if summary.section %>
+  <%=l summary.updated_at, :format => :short %>
+  <%= link_to "edit", edit_manage_page_path(summary) %>
+  <%= link_to "show", manage_page_path(summary) %>
+  <%= link_to "public", summary.path %>
+</li>

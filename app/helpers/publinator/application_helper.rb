@@ -64,21 +64,20 @@ module Publinator
     end
 
     def submenu(object)
-      obj_slug = object.respond_to?(:slug) ? object.slug : object.my_slug
-      content_tag(:div, :class => 'submenu', :id => obj_slug) do
+      content_tag(:div, :class => 'submenu', :id => object.slug) do
         div_content = ""
         ul_content = ""
         div_content += content_tag(:ul) do
-          object.menu_collection.each{ |mco| ul_content += li_tag(mco) unless mco.respond_to?(:hide_in_submenu) && mco.hide_in_submenu }
+          object.menu_collection.each do |mco|
+            unless mco.respond_to?(:hide_in_submenu) && mco.hide_in_submenu
+              ul_content += li_tag(mco)
+            end
+          end
           ul_content.html_safe
         end
         div_content.html_safe
       end
     end
-
-    #def menu_item(obj)
-      #menu_section(obj.title, obj.path, obj.menu_collection)
-    #end
 
     def publishable_asset(pub, asset_type)
       return if !pub

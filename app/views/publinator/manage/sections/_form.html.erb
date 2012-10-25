@@ -1,10 +1,28 @@
-<%= semantic_form_for [:manage, @section], :method => :post do |form| %>
+<%= semantic_form_for [:manage, @section] do |form| %>
   <%= form.inputs do %>
     <%= form.input :name %>
-    <%= form.input :layout %>
+    <%= form.input :section_slug %>
+    <%= form.input :layout, :label => "Use a Custom Layout?" %>
+    <%= form.input :parent_id, :as => :select, :collection => current_site.sections, :label => "Parent Section" %>
   <% end %>
   <%= form.actions do %>
     <%= form.action :submit, :as => :button %>
     <%= form.action :cancel, :as => :link %>
   <% end %>
 <% end %>
+
+<h3>Subsections</h3>
+
+<% current_site.sections.where(:parent_id => @section.id).each do |sec| %>
+  <%= link_to sec.name, manage_section_path(sec) %><br>
+<% end %>
+
+<%= link_to "sort", sort_manage_section_path(@section) %>
+
+<h3>Pages</h3>
+
+<ul class="sortable_list" sorturl="<%= manage_section_path(@section) %>/sort">
+  <% @section.publications.each do |mcp| %>
+    <li id="<%= "#{mcp.class.to_s.demodulize.downcase}_#{mcp.id}" %>"><%= mcp.title %> (<%= link_to "edit", edit_manage_page_path(mcp.publishable_id) %>)</li>
+  <% end %>
+</ul>

@@ -22,8 +22,10 @@ Gem::Specification.new do |s|
   s.add_dependency "paper_trail"
   s.add_dependency "sass-rails"
   s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-ui-rails"
   s.add_dependency "rdiscount"
   s.add_dependency "paperclip", "~> 3.0"
+  s.add_dependency "acts_as_list"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "cucumber-rails"

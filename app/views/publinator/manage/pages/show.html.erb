@@ -12,5 +12,6 @@
 <div id="controls">
   <%= link_to "Back", manage_pages_path %>
   <%= link_to "Edit", edit_manage_page_path(@page) %>
+  <%= link_to "Public", @page.path, :target => "_new" %>
   <%= link_to "Delete", manage_page_path(@page), :method => :delete, :class => "danger", :confirm => "Delete this #{@publishable.class.to_s}?" %>
 </div>

@@ -1,17 +1,7 @@
 <h2>Pages</h2>
 
-<table id="publishables">
-  <thead>
-    <tr>
-      <th>Page Title</th>
-      <th>Section</th>
-      <th>Last Updated At</th>
-      <th>Edit</th>
-      <th>Show</th>
-      <th>Public Link</th>
-    </tr>
-  </thead>
+<ul id="publishables">
   <%= render :collection => @pages, :partial => "summary" %>
-</table>
+</ul>
 
 <%= link_to "Add Page", "/manage/pages/new" %>

@@ -1,8 +1,7 @@
-<tr>
-  <td><%= link_to summary.my_slug, [:manage, summary] %></td>
-  <td><%= link_to summary.publication.section.name if summary.publication.section %></td>
-  <td><%= summary.updated_at %></td>
-  <td><%= link_to "edit", send("edit_manage_#{@publishable_member_name}_path", summary) %></td>
-  <td><%= link_to "show", [:manage, summary] %></td>
-  <td><%= link_to "public", summary.path %></td>
-</tr>
+<li class="ui-state-default" id="publishable_<%= summary.id %>">
+  <%= link_to summary.my_slug, [:manage, summary] %><br>
+  <%= summary.updated_at %> [
+  <%= link_to "edit", send("edit_manage_#{@publishable_member_name}_path", summary) %>
+  <%= link_to "show", [:manage, summary] %>
+  <%= link_to "public", summary.path %> ]
+</li>

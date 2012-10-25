@@ -1,17 +1,7 @@
 <h2><%= @publishable_class_name.capitalize.pluralize %></h2>
 
-<table id="publishables">
-  <thead>
-    <tr>
-      <th><%= @publishable_class_name %> Slug</th>
-      <th>Section</th>
-      <th>Last Updated At</th>
-      <th>Edit</th>
-      <th>Show</th>
-      <th>Public Link</th>
-    </tr>
-  </thead>
+<ul id="publishables">
   <%= render :collection => @publishables, :partial => "summary" %>
-</table>
+</ul>
 
 <%= link_to "Add #{@publishable_class_name}", send("new_manage_#{@publishable_member_name}_path") %>

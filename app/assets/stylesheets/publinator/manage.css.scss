@@ -9,12 +9,13 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery.ui.all
  *= require './manage/publishable.css.scss'
 */
 
 body {
   font-family: "helvetica neue", helvetica, verdana, arial, helvetica, "sans-serif";
-  font-size: small;
+  font-size: 1em;
   background-color: #ccc;
   margin: 0;
   padding: 0;
@@ -33,6 +34,28 @@ body {
     background-color: #fff;
     margin: 0;
     padding: 2em;
+
+    table {
+      th {
+        text-align: left;
+      }
+      tr {
+        td {
+          padding: 0.3em;
+        }
+      }
+    }
+
+    ul#publishables {
+      list-style-type: none;
+
+      li {
+        width: 400px;
+        border: 1px solid silver;
+        margin: 6px;
+        padding: 8px;
+      }
+    }
   }
 
   #footer  {

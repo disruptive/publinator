@@ -7,6 +7,14 @@ module Publinator
     before_filter :get_pages
     before_filter :get_page, :only => [:show, :edit, :update, :destroy]
 
+    def sort
+      @pages.each do |page|
+        page.position = params['page'].index(page.id.to_s) + 1
+        page.save
+      end
+      render :nothing => true
+    end
+
     def index
       begin
         render "manage/pages/index"
@@ -53,7 +61,8 @@ module Publinator
 
     def create
       @page = Publinator::Page.new(params[:page])
-      @page.site = current_site
+      @page.publication.site = current_site
+
       if @page.save
         redirect_to "/manage/pages", :notice => "Page created."
       else
@@ -67,9 +76,13 @@ module Publinator
 
     def update
       @page.update_attributes(params[:page])
-      @page.site = current_site
+      @page.publication.site = current_site
       if @page.save
-        redirect_to "/manage/pages", :notice => "Page updated."
+        if @page.publication.section
+          redirect_to manage_section_path(@page.publication.section), :notice => "Page updated."
+        else
+          redirect_to "/manage/pages", :notice => "Page updated."
+        end
       else
         begin
           render "manage/page/edit", :notice => "Page could not be updated."
@@ -82,7 +95,7 @@ module Publinator
     private
 
       def get_pages
-        @pages = Publinator::Page.where(:site_id => current_site.id).order("updated_at desc")
+        @pages = Publinator::Page.unscoped.where(:site_id => current_site.id).order("updated_at desc")
       end
 
       def get_page
