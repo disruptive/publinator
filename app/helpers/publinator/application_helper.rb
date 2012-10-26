@@ -101,5 +101,9 @@ module Publinator
       stp_txt = truncate(strip_tags(m(txt)), :length => 200)
       stp_txt.gsub("&#39;", "'").gsub("&amp;", "&").gsub("&reg;", "").gsub("&trade;", "") unless stp_txt.nil?
     end
+
+    def toggle_details(lnk_text, obj_link)
+      link_to lnk_text, obj_link, :class => 'toggle_details'
+    end
   end
 end

@@ -16,6 +16,11 @@
 //= require_directory "./manage"
 //= require_self
 
+function moveObject(selector, from, to) {
+  $(selector).appendTo($(to));
+  $(selector).find($(from)).remove();
+}
+
 $(function() {
   $(".sortable_list").sortable({
     update: function(){
@@ -29,5 +34,11 @@ $(function() {
     }
   });
   $(".sortable_list").disableSelection();
+
+
+  $(".toggle_details").on("click", function(event) {
+    event.preventDefault();
+    $(event.currentTarget).siblings('.object_details').toggle();
+  });
 });
 

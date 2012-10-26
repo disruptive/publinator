@@ -13,7 +13,7 @@ GIT
 PATH
   remote: .
   specs:
-    publinator (0.0.27)
+    publinator (0.0.28)
       acts_as_list
       formtastic
       jquery-rails

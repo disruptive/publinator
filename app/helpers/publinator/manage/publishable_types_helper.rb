@@ -1,4 +1,7 @@
 module Publinator
-  module Manage::PublishableTypesHelper
+  module Manage
+    module PublishableTypesHelper
+
+    end
   end
 end

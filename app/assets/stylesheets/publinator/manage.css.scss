@@ -56,6 +56,14 @@ body {
         padding: 8px;
       }
     }
+
+    .object_details {
+      display: none;
+      font-size: 0.9em;
+      border: 1px solid silver;
+      margin: 12px;
+      padding: 12px;
+    }
   }
 
   #footer  {

@@ -34,7 +34,7 @@ module Publinator
         attr_accessor                   :default
 
         scope :non_index, joins(:publication).where("publication.slug != 'index'")
-        delegate :site, :section, :slug, :to => :publication
+        delegate :site, :position, :section, :slug, :to => :publication
       end
     end
 
