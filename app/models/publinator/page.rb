@@ -13,5 +13,14 @@ module Publinator
       title
     end
 
+    if ThinkingSphinx
+      define_index do
+        indexes title
+        indexes body
+        indexes subtitle
+        has created_at, updated_at
+      end
+    end
+
   end
 end

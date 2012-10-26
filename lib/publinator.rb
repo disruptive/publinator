@@ -72,6 +72,10 @@ module Publinator
       end
     end
 
+    def url
+      site.url(path)
+    end
+
     def menu_collection
       nil
     end

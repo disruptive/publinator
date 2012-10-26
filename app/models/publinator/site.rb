@@ -21,6 +21,18 @@ module Publinator
       Site.find(self.parent_id)
     end
 
+    def default_url
+      dn = domain_names.where(:default => true).first
+      url = "http://"
+      url += "#{dn.subdomain}." unless dn.subdomain.blank?
+      url += "#{dn.name}"
+      url
+    end
+
+    def url(path)
+      "#{default_url}#{path}"
+    end
+
     def publications(scope = 'published', sort = 'updated_at desc', publishable_type)
       if publishable_type.nil?
         pubs = Publication.for_site(self.id).send(scope).order(sort)

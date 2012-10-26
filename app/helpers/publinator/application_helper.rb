@@ -77,6 +77,8 @@ module Publinator
         end
         div_content.html_safe
       end
+    rescue => e
+      logger.info e
     end
 
     def publishable_asset(pub, asset_type)
@@ -93,6 +95,11 @@ module Publinator
       else
         image_tag(imgs.first.asset.url(size.to_sym))
       end
+    end
+
+    def clean_result_text(txt)
+      stp_txt = truncate(strip_tags(m(txt)), :length => 200)
+      stp_txt.gsub("&#39;", "'").gsub("&amp;", "&").gsub("&reg;", "").gsub("&trade;", "") unless stp_txt.nil?
     end
   end
 end
