@@ -6,7 +6,7 @@ module Publinator
     belongs_to :section, :class_name => "Publinator::Page"
 
     def asset_types
-      ['header']
+      ['header','pdf_document']
     end
 
     def name
