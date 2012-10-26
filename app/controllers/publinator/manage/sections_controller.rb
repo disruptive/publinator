@@ -17,7 +17,7 @@ module Publinator
     end
 
     def new
-      @section = Section.new(:site => current_site)
+      @section = Section.new
     end
 
     def create
