@@ -27,6 +27,7 @@ module Publinator
     end
 
     def current_controller
+      return "Home" if body_id == 'home'
       body_id.pluralize.camelize
     end
 
