@@ -13,6 +13,10 @@ module Publinator
       title
     end
 
+    def publishables
+      self.asset_files - self.asset_files('header')
+    end
+
     if ThinkingSphinx
       define_index do
         indexes title

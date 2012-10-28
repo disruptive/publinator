@@ -19,6 +19,9 @@
         <% if asset_form.object.asset.present? %>
           <%= link_to(image_tag(asset_form.object.asset.url(:thumb)), asset_form.object.asset.url(:original), :target => "_new") %>
         <% end %>
+        <% asset_form.object.editable_fields.collect{ |an| an.to_sym }.each do |field| %>
+          <%= asset_form.input field %>
+        <% end %>
         <%= asset_form.input :asset_type, :as => :select, :collection => @page.asset_types %>
         <%= asset_form.input :asset, :as => :file %>
       <% end %>
