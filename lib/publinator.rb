@@ -19,7 +19,8 @@ module Publinator
         has_many  :asset_items,
             :as           =>  :assetable,
             :class_name   =>  "Publinator::AssetItem",
-            :foreign_key  =>  :assetable_id
+            :foreign_key  =>  :assetable_id,
+            :order        =>  'position'
 
 
         accepts_nested_attributes_for   :asset_items, :reject_if => :all_blank
