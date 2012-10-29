@@ -1,8 +1,8 @@
 <%= m(@publishable.body) %>
 
-<% if @publishable.respond_to?(:publishables) %>
+<% if @publishable.respond_to?(:publishables) && @publishable.publishables.length > 0 && !@publishable.publishables.first.class.nil? %>
 <ol id="documents" type="A">
-  <%= render :collection => @publishable.publishables, :partial => "/object_blocks/#{@publishable.publishables.first.class.to_s.demodulize.underscore}" %>
+  <%= render :collection => @publishable.publishables.order('position'), :partial => "/object_blocks/#{@publishable.publishables.first.class.to_s.demodulize.underscore}" %>
 </ol>
 <% end %>
 
