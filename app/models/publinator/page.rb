@@ -14,7 +14,7 @@ module Publinator
     end
 
     def publishables
-      self.asset_files - self.asset_files('header')
+      (self.asset_files - self.asset_files('header')).sort_by{|asset_file| asset_file.position}
     end
 
     if ThinkingSphinx
