@@ -1,4 +1,5 @@
 require_dependency "publinator/application_controller"
+require 'rdiscount'
 
 module Publinator
   class Manage::PublishableController < ApplicationController
@@ -20,6 +21,10 @@ module Publinator
       rescue ActionView::MissingTemplate
         render "publinator/manage/publishable/show"
       end
+    end
+
+    def preview
+      render :text => RDiscount.new(params[:preview_text]).to_html.html_safe, :layout => false
     end
 
     def new

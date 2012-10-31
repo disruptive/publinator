@@ -6,5 +6,6 @@
 
     has_attached_file :asset
     default_scope order('updated_at desc')
+
   end
 #end

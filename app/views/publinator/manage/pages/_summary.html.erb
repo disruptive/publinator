@@ -1,9 +1,10 @@
 <li class="ui-state-default" id="page_<%= summary.id %>">
-  <%= link_to summary.publication.slug, edit_manage_page_path(summary) %><br>
-  <%= truncate(summary.title, :length => 80) %>
-  <%= link_to summary.section.name if summary.section %>
-  <%=l summary.updated_at, :format => :short %>
-  <%= link_to "edit", edit_manage_page_path(summary) %>
-  <%= link_to "show", manage_page_path(summary) %>
-  <%= link_to "public", summary.path %>
+  <div class="controls">
+    <%= link_to "edit", edit_manage_page_path(summary), :class => "ui-icon ui-icon-pencil" %>
+    <%= link_to "public", summary.path, :class => "ui-icon ui-icon-newwin" %>
+  </div>
+  <%= link_to summary.title, edit_manage_page_path(summary) %><br>
+  <div class="details">
+    <%= truncate(summary.path, :length => 80) %> <span class="publication_date"><%=l summary.updated_at, :format => :short %></span>
+  </div>
 </li>

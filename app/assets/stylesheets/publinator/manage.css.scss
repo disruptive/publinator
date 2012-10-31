@@ -15,7 +15,7 @@
 
 body {
   font-family: "helvetica neue", helvetica, verdana, arial, helvetica, "sans-serif";
-  font-size: 1em;
+  font-size: 0.9em;
   background-color: #ccc;
   margin: 0;
   padding: 0;
@@ -35,6 +35,10 @@ body {
     margin: 0;
     padding: 2em;
 
+    .ui-icon {
+      display: inline-block;
+    }
+
     table {
       th {
         text-align: left;
@@ -50,10 +54,25 @@ body {
       list-style-type: none;
 
       li {
-        width: 400px;
+        width: 600px;
         border: 1px solid silver;
         margin: 6px;
         padding: 8px;
+
+        .details {
+          font-size: 0.7em;
+          margin: 12px 0px 0px;
+
+          span.publication_date {
+            float: right;
+          }
+
+        }
+
+        .controls {
+          clear: both;
+          float: right;
+        }
       }
     }
 
@@ -96,8 +115,15 @@ body {
           font-weight: bold;
         }
         li.action {
-          display: inline;
-          padding-right: 2em;
+          span.ui-button-text button {
+            border: 0px;
+            background-color: inherit;
+          }
+          float: right;
+        }
+
+        li.action.link_action {
+          float: left;
         }
         li.string {
           input[type="text"] {
@@ -114,6 +140,10 @@ body {
           float: left;
         }
       }
+    }
+
+    fieldset.advanced_settings {
+      display: none;
     }
   }
 }

@@ -1,4 +1,4 @@
-<h2>Add a new <%= @publishable.class.to_s %></h2>
+<h2>Add a new <%= @publishable.class.to_s.tableize.singularize.titleize %></h2>
 
 <%= render :partial => "form" %>
 

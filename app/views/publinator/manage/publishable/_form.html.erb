@@ -4,36 +4,51 @@
       <%= e %><br>
     <% end %>
   <% end %>
-  <%= form.inputs @publishable_class.to_s do %>
-    <% @publishable.editable_fields.collect{ |an| an.to_sym }.each do |field| %>
-      <%= form.input field %>
-    <% end %>
-  <% end %>
-  <% if @publishable.asset_types.length > 0 %>
-    <%= form.semantic_fields_for :asset_items do |asset_form| %>
-      <%= asset_form.inputs "Asset" do %>
-        <% if asset_form.object.asset.present? %>
-          <%= link_to(image_tag(asset_form.object.asset.url(:thumb)), asset_form.object.asset.url(:original), :target => "_new") %>
+
+  <div id="tabs">
+    <ul>
+      <li><a href="#tabs-1"><%= @publishable.class.to_s.tableize.singularize.titleize %></a></li>
+      <li><a href="#tabs-2">Assets</a></li>
+      <li><a href="#tabs-3">Publication</a></li>
+    </ul>
+    <div id="tabs-1">
+      <%= form.inputs do %>
+        <div id="preview"></div>
+        <% @publishable.editable_fields.collect{ |an| an.to_sym }.each do |field| %>
+          <%= form.input field %>
         <% end %>
-        <% asset_form.object.editable_fields.collect{ |an| an.to_sym }.each do |field| %>
-          <%= asset_form.input field %>
-        <% end %>
-        <%= asset_form.input :asset_type, :as => :select, :collection => @publishable.asset_types %>
-        <%= asset_form.input :asset, :as => :file %>
       <% end %>
-    <% end %>
-  <% end %>
-  <%= form.semantic_fields_for :publication do |pub| %>
-    <%= pub.inputs "Publication Settings" do %>
-      <%= pub.input :custom_slug, :required => false %>
-      <%= pub.input :collection_publishable_type_id, :as => :select, :collection => Publinator::PublishableType.all, :required => false %>
-      <%= pub.input :collection_scope, :required => false %>
-      <%= pub.input :publish_at, :as => :datetime_select, :required => false %>
-      <%= pub.input :unpublish_at, :as => :datetime_select, :required => false %>
-      <%= pub.input :archive_at, :as => :datetime_select, :required => false %>
-      <%= pub.input :hide_in_submenu, :as => :boolean, :required => false %>
-    <% end %>
-  <% end %>
+    </div>
+    <div id="tabs-2">
+      <% if @publishable.asset_types.length > 0 %>
+        <%= form.semantic_fields_for :asset_items do |asset_form| %>
+          <% if asset_form.object.asset.present? %>
+            <%= link_to(image_tag(asset_form.object.asset.url(:thumb)), asset_form.object.asset.url(:original), :target => "_new") %>
+          <% end %>
+          <%= asset_form.inputs "Asset" do %>
+            <% asset_form.object.editable_fields.collect{ |an| an.to_sym }.each do |field| %>
+              <%= asset_form.input field %>
+            <% end %>
+            <%= asset_form.input :asset_type, :as => :select, :collection => @publishable.asset_types %>
+            <%= asset_form.input :asset, :as => :file %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div id="tabs-3">
+      <%= form.semantic_fields_for :publication, @publishable.publication do |pub| %>
+        <%= pub.inputs "Advanced Publication Settings", :class => "advanced_settings" do %>
+          <%= pub.input :custom_slug, :required => false %>
+          <%= pub.input :collection_publishable_type_id, :as => :select, :collection => Publinator::PublishableType.all, :required => false %>
+          <%= pub.input :collection_scope, :required => false %>
+          <%= pub.input :publish_at, :as => :datetime_select, :required => false %>
+          <%= pub.input :unpublish_at, :as => :datetime_select, :required => false %>
+          <%= pub.input :archive_at, :as => :datetime_select, :required => false %>
+          <%= pub.input :hide_in_submenu, :as => :boolean, :required => false %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
   <%= form.actions do %>
     <%= form.action :submit, :as => :button %>
     <%= form.action :cancel, :as => :link %>

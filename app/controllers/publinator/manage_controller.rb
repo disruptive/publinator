@@ -10,4 +10,5 @@ class Publinator::ManageController < Publinator::ApplicationController
     @publishable_types = Publinator::PublishableType.all
     render "publinator/manage/index"
   end
+
 end

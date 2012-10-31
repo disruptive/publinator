@@ -49,6 +49,10 @@ module Publinator
       end
     end
 
+    def preview
+      render :text => RDiscount.new(params[:preview_text]).to_html.html_safe, :layout => false
+    end
+
     def edit
       @field_names = @page.editable_fields.collect{ |an| an.to_sym }
       @page.asset_items.build

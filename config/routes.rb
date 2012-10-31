@@ -1,6 +1,7 @@
 Publinator::Engine.routes.draw do
 
   match "/manage" => 'manage#index'
+  match "/manage/preview" => 'manage#preview'
 
   namespace :manage do
 
@@ -8,6 +9,7 @@ Publinator::Engine.routes.draw do
       resources pt.name.tableize.to_sym, :controller => "publishable", :publishable_type => pt.name.tableize do
         member do
           post :sort
+          get :preview
         end
       end
     end
@@ -39,6 +41,7 @@ Publinator::Engine.routes.draw do
     resources :pages do
       collection do
         post :sort
+        post :preview
       end
     end
     resources :sites

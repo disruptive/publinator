@@ -21,6 +21,16 @@ function moveObject(selector, from, to) {
   $(selector).find($(from)).remove();
 }
 
+function loadPreview() {
+  preview_text = $($('textarea')[0]).val();
+  $.ajax({
+    url: "preview",
+    data: {preview_text: preview_text}
+  }).done(function( msg ) {
+    $('#preview').html( msg );
+  });
+}
+
 $(function() {
   $(".sortable_list").sortable({
     update: function(){
@@ -33,8 +43,36 @@ $(function() {
       })
     }
   });
+
   $(".sortable_list").disableSelection();
 
+  $("#tabs").tabs();
+
+  $("fieldset.actions button").button({ icons: { primary: "ui-icon-check" }});
+  $("#publishable_type_button").button();
+  $(".new_button").button({ icons: { primary: "ui-icon-document" }});
+
+
+
+
+  $(document).on("keypress keydown", function(event) {
+    console.log(event);
+    if (event.ctrlKey || event.metaKey) {
+      if (event.keyCode == 83) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('form').submit();
+        return false;
+      }
+      else if (event.keyCode == 16) {
+        event.preventDefault();
+        event.stopPropagation();
+        loadPreview();
+        return false;
+
+      }
+    }
+  });
 
   $(".toggle_details").on("click", function(event) {
     event.preventDefault();

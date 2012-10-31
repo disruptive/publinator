@@ -60,8 +60,12 @@ module Publinator
       []
     end
 
+    def hidden_fields
+      []
+    end
+
     def editable_fields
-      attribute_names - ["id", "created_at", "updated_at"]
+      attribute_names - (["id", "created_at", "updated_at"] + hidden_fields)
     end
 
     def path

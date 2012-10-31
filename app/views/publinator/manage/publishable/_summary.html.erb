@@ -1,7 +1,10 @@
-<li class="ui-state-default" id="publishable_<%= summary.id %>">
-  <%= link_to summary.my_slug, [:manage, summary] %><br>
-  <%= summary.updated_at %> [
-  <%= link_to "edit", send("edit_manage_#{@publishable_member_name}_path", summary) %>
-  <%= link_to "show", [:manage, summary] %>
-  <%= link_to "public", summary.path %> ]
+<li class="ui-state-default" id="page_<%= summary.id %>">
+  <div class="controls">
+    <%= link_to "edit", send("edit_manage_#{@publishable_member_name}_path", summary), :class => "ui-icon ui-icon-pencil" %>
+    <%= link_to "public", summary.path, :class => "ui-icon ui-icon-newwin", :target => "_new" %>
+  </div>
+  <%= link_to summary.title, send("edit_manage_#{@publishable_member_name}_path", summary) %><br>
+  <div class="details">
+    <%= truncate(summary.path, :length => 80) %> <span class="publication_date"><%=l summary.updated_at, :format => :short %></span>
+  </div>
 </li>
